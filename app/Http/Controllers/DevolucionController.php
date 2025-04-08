@@ -40,7 +40,12 @@ class DevolucionController extends Controller
             'motivo' => 'required|string|max:255',
         ]);
 
-        Devolucion::create($request->all());
+        // Crear la devolución
+        $devolucion = Devolucion::create($request->all());
+
+        // Actualizar el stock del medicamento (restando la cantidad devuelta)
+        $medicamento = Medicamento::findOrFail($request->medicamento_id);
+        $medicamento->decrement('stock', $devolucion->cantidad);
 
         return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
     }
@@ -80,7 +85,21 @@ class DevolucionController extends Controller
             'motivo' => 'required|string|max:255',
         ]);
 
+        // Obtener medicamento antes de actualizar la devolución
+        $medicamentoAnterior = $devolucion->medicamento;
+        $cantidadAnterior = $devolucion->cantidad;
+
+        // Actualizar la devolución
         $devolucion->update($request->all());
+
+        // Actualizar el stock del medicamento
+        $medicamentoNuevo = Medicamento::findOrFail($request->medicamento_id);
+        
+        // Ajustar el stock del medicamento anterior
+        $medicamentoAnterior->increment('stock', $cantidadAnterior);
+
+        // Ajustar el stock del nuevo medicamento
+        $medicamentoNuevo->decrement('stock', $devolucion->cantidad);
 
         return redirect()->route('devolucion.index')->with('success', 'Devolución actualizada correctamente.');
     }
@@ -91,7 +110,14 @@ class DevolucionController extends Controller
     public function destroy(string $id)
     {
         $devolucion = Devolucion::findOrFail($id);
+        $medicamento = $devolucion->medicamento;
+
+        // Aumentar el stock del medicamento relacionado si se elimina la devolución
+        $medicamento->increment('stock', $devolucion->cantidad);
+
+        // Eliminar la devolución
         $devolucion->delete();
+
         return redirect()->route('devolucion.index')->with('success', 'Devolución eliminada correctamente.');
     }
 
