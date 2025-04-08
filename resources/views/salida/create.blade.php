@@ -17,16 +17,7 @@
         <h1 class="text-center">Registrar Salida</h1>
         <form action="{{ route('salida.store') }}" method="POST">
             @csrf
-            <div class="mb-3">
-    <label for="usuario_id" class="form-label">Usuario</label>
-    <select class="form-select" id="usuario_id" name="usuario_id" required>
-        <option value="">Seleccione un usuario</option>
-        @foreach ($usuarios as $usuario)
-            <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
-        @endforeach
-    </select>
-</div>
-
+    
 <div class="mb-3">
     <label for="usuario_id" class="form-label">Usuario</label>
     <select class="form-select" id="usuario_id" name="usuario_id" required>
