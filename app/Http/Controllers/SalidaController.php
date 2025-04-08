@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Salida;
 use App\Models\Medicamento;
 use App\Models\Usuario;

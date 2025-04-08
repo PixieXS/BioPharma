@@ -48,14 +48,16 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-    <label for="usuario_id" class="form-label">Usuario</label>
-    <select class="form-select" id="usuario_id" name="usuario_id" required>
-        <option value="">Seleccione un usuario</option>
-        @foreach ($usuarios as $usuario)
-            <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
-        @endforeach
-    </select>
-</div>
+                <label class="form-label" for="medicamento_id">Medicamento</label>
+                <select id="medicamento_id" name="medicamento_id" class="form-control" required>
+                    <option value="" disabled>Seleccione un medicamento</option>
+                    @foreach($medicamentos as $medicamento)
+                        <option value="{{ $medicamento->id }}" {{ $devolucion->medicamento_id == $medicamento->id ? 'selected' : '' }}>
+                            {{ $medicamento->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             <!-- Usuario (solo lectura o deshabilitado) -->
             <div class="mb-3">
                 <label class="form-label" for="usuario_id">Usuario que realizó la Devolución:</label>
