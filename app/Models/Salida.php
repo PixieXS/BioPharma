@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Salida extends Model
 {
     //
-    protected $fillable = ['medicamento_id', 'usuario_id', 'cantidad', 'tipo_salida', 'fecha'];
+    protected $fillable = [
+        'medicamento_id',
+        'usuario_id',
+        'cantidad',
+        'tipo_salida',
+        'fecha',
+    ];
 
     public function medicamento()
     {

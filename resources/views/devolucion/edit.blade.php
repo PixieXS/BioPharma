@@ -48,33 +48,32 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label class="form-label">Medicamento</label>
-                <select name="medicamento_id" class="form-control" required>
-                    <option value="" disabled>Seleccione un medicamento</option>
-                    @foreach($medicamentos as $medicamento)
-                        <option value="{{ $medicamento->id }}" {{ $devolucion->medicamento_id == $medicamento->id ? 'selected' : '' }}>
-                            {{ $medicamento->nombre }}
-                        </option>
-                    @endforeach
-                </select>
+    <label for="usuario_id" class="form-label">Usuario</label>
+    <select class="form-select" id="usuario_id" name="usuario_id" required>
+        <option value="">Seleccione un usuario</option>
+        @foreach ($usuarios as $usuario)
+            <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+        @endforeach
+    </select>
+</div>
+            <!-- Usuario (solo lectura o deshabilitado) -->
+            <div class="mb-3">
+                <label class="form-label" for="usuario_id">Usuario que realizó la Devolución:</label>
+                <input type="text" id="usuario_id" class="form-control" value="{{ $devolucion->usuario->nombre }}" disabled>
+                <input type="hidden" name="usuario_id" value="{{ $devolucion->usuario->id }}">
             </div>
-          <!-- Usuario (solo lectura o deshabilitado) -->
-          <div class="mb-3">
-            <label class="form-label">Usuario que realizó la Devolución:</label>
-            <input type="text" class="form-control" value="{{ $devolucion->usuario->nombre }}" disabled>
-        </div>
 
             <div class="mb-3">
-                <label class="form-label">Cantidad</label>
-                <input type="number" name="cantidad" class="form-control" value="{{ $devolucion->cantidad }}" required>
+                <label class="form-label" for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" class="form-control" value="{{ $devolucion->cantidad }}" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">Fecha</label>
-                <input type="date" name="fecha" class="form-control" value="{{ $devolucion->fecha }}" required>
+                <label class="form-label" for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" class="form-control" value="{{ $devolucion->fecha }}" required>
             </div>
             <div class="mb-3">
-                <label class="form-label">Motivo</label>
-                <input type="text" name="motivo" class="form-control" value="{{ $devolucion->motivo }}" required>
+                <label class="form-label" for="motivo">Motivo</label>
+                <input type="text" id="motivo" name="motivo" class="form-control" value="{{ $devolucion->motivo }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
             <a href="{{ route('devolucion.index') }}" class="btn btn-secondary">Cancelar</a>

@@ -32,41 +32,36 @@ class SalidaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'medicamento_id' => 'required|exists:medicamentos,id',
-            'usuario_id' => 'required|exists:usuarios,id',
-            'cantidad' => 'required|integer|min:1',
-            'tipo_salida' => 'required|in:venta,ajuste',
-            'fecha' => 'required|date',
-        ]);
-    
-        // Obtener el medicamento
-        $medicamento = Medicamento::findOrFail($request->medicamento_id);
-    
-        // Verificar si hay suficiente stock en caso de ser una venta
-        if ($request->tipo_salida == 'venta' && $medicamento->stock < $request->cantidad) {
-            return redirect()->back()->withErrors(['cantidad' => 'No hay suficiente stock disponible para esta venta.']);
-        }
-    
-        // Crear la salida
-        $salida = Salida::create([
-            'medicamento_id' => $request->medicamento_id,
-            'usuario_id' => $request->usuario_id,
-            'cantidad' => $request->cantidad,
-            'tipo_salida' => $request->tipo_salida,
-            'fecha' => $request->fecha,
-        ]);
-    
-        // Actualizar el stock del medicamento
-        if ($request->tipo_salida == 'venta') {
-            $medicamento->decrement('stock', $salida->cantidad);
-        } else {
-            $medicamento->decrement('stock', $salida->cantidad);
-        }
-    
-        return redirect()->route('salida.index')->with('success', 'Salida registrada correctamente.');
+{
+    $request->validate([
+        'medicamento_id' => 'required|exists:medicamentos,id',
+        'cantidad' => 'required|integer|min:1',
+        'tipo_salida' => 'required|in:venta,ajuste',
+        'fecha' => 'required|date',
+    ]);
+
+    $medicamento = Medicamento::findOrFail($request->medicamento_id);
+
+    if ($request->tipo_salida == 'venta' && $medicamento->stock < $request->cantidad) {
+        return redirect()->back()->withErrors(['cantidad' => 'No hay suficiente stock disponible para esta venta.']);
     }
+
+    // Obtener usuario logueado
+    $usuarioId = Auth::user()->id;
+
+    $salida = Salida::create([
+        'medicamento_id' => $request->medicamento_id,
+        'usuario_id' => $usuarioId, // Automático
+        'cantidad' => $request->cantidad,
+        'tipo_salida' => $request->tipo_salida,
+        'fecha' => $request->fecha,
+    ]);
+
+    $medicamento->decrement('stock', $salida->cantidad);
+
+    return redirect()->route('salida.index')->with('success', 'Salida registrada correctamente.');
+}
+
 
     /**
      * Display the specified resource.
