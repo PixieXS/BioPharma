@@ -20,7 +20,7 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="medicamento_id" class="form-label">Medicamento</label>
-                <select class="form-select" id="medicamento_id" name="medicamento_id" required>
+                <select class="form-select" id="medicamento_id" name="medicamento_id" required disabled>
                     @foreach ($medicamentos as $medicamento)
                         <option value="{{ $medicamento->id }}" {{ $medicamento->id == $salida->medicamento_id ? 'selected' : '' }}>
                             {{ $medicamento->nombre }}
