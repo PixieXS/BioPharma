@@ -19,6 +19,12 @@
             @csrf
 
             <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="usuario" value="{{ Auth::user()->nombre }}" disabled>
+                <input type="hidden" name="usuario_id" value="{{ Auth::id() }}">
+            </div>
+
+            <div class="mb-3">
                 <label for="cantidad" class="form-label">Cantidad</label>
                 <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" required>
             </div>
