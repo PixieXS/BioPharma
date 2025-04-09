@@ -8,32 +8,52 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
         }
         .container {
             max-width: 600px;
-            margin-top: 50px;
+            margin-top: 80px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #dc3545;
         }
         .btn-custom {
+            border-radius: 25px;
             width: 100%;
+        }
+        .btn-group-custom {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="text-center mb-4">Eliminar Usuario</h1>
+        <h1>Eliminar Usuario</h1>
 
         <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST">
             @csrf
             @method('DELETE')
 
-            <div class="alert alert-warning">
-                <strong>Advertencia:</strong> ¿Estás seguro de que deseas eliminar el usuario <strong>{{ $usuario->nombre }}</strong>?
-                Esta acción no se puede deshacer.
+            <div class="alert alert-warning text-center">
+                <strong>¿Estás seguro?</strong><br>
+                El usuario <strong>{{ $usuario->nombre }}</strong> será eliminado permanentemente.<br>
+                <small>Esta acción no se puede deshacer.</small>
             </div>
 
-            <button type="submit" class="btn btn-danger btn-custom">Eliminar Usuario</button>
-            <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
+            <div class="btn-group-custom">
+                <button type="submit" class="btn btn-danger btn-custom">Sí, Eliminar</button>
+                <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
+            </div>
         </form>
 
     </div>

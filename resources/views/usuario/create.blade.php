@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,12 @@
             max-width: 600px;
             margin-top: 50px;
         }
+        h1 {
+            font-weight: bold;
+            color: #333;
+        }
         .btn-custom {
+            border-radius: 25px;
             width: 100%;
         }
     </style>
@@ -23,17 +28,26 @@
     <div class="container">
         <h1 class="text-center mb-4">Crear Usuario</h1>
 
-        <form action="/usuario" method="POST">
+        {{-- Mensajes de error --}}
+        @if ($errors->any())
+            <div class="alert alert-danger text-center">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        <form action="{{ route('usuario.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" required autocomplete="name">
+                <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}" required autocomplete="name">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" name="email" id="email" class="form-control" required autocomplete="email">
+                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required autocomplete="email">
             </div>
 
             <div class="mb-3">
@@ -43,23 +57,24 @@
 
             <div class="mb-3">
                 <label for="rol" class="form-label">Rol</label>
-                <select name="rol" id="rol" class="form-control" required autocomplete="off">
-                    <option value="basico">Básico</option>
-                    <option value="root">Root</option>
+                <select name="rol" id="rol" class="form-select" required>
+                    <option value="basico" {{ old('rol') == 'basico' ? 'selected' : '' }}>Básico</option>
+                    <option value="root" {{ old('rol') == 'root' ? 'selected' : '' }}>Root</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="estado" class="form-label">Estado</label>
-                <select name="estado" id="estado" class="form-control" required autocomplete="off">
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
+                <select name="estado" id="estado" class="form-select" required>
+                    <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                    <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                 </select>
             </div>
 
             <button type="submit" class="btn btn-success btn-custom">Guardar Usuario</button>
         </form>
 
+        <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom mt-3">Volver</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -114,22 +114,30 @@ class UsuarioController extends Controller
     public function destroy(string $id)
     {
         $usuario = Usuario::findOrFail($id);
-
+    
+        // Evitar que un usuario se elimine a sí mismo
+        if ($usuario->id == auth()->id()) {
+            return back()->withErrors(['error' => 'No puedes eliminar tu propio usuario.']);
+        }
+    
         // Evitar eliminar al último usuario root activo
         if ($usuario->rol === 'root') {
-            $rootActivo = Usuario::where('rol', 'root')->where('estado', 'activo')->where('id', '!=', $usuario->id)->exists();
-
+            $rootActivo = Usuario::where('rol', 'root')
+                ->where('estado', 'activo')
+                ->where('id', '!=', $usuario->id)
+                ->exists();
+    
             if (!$rootActivo) {
                 return back()->withErrors(['error' => 'No puedes eliminar al único usuario root activo.']);
             }
         }
-
+    
         // Eliminar el usuario
         $usuario->delete();
-
+    
         return redirect()->route('usuario.index')->with('success', 'Usuario eliminado exitosamente');
     }
-
+    
     /**
      * Mostrar la confirmación para eliminar un usuario.
      */
