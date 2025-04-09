@@ -58,7 +58,7 @@
         <!-- Fecha -->
         <div class="mb-3">
             <label for="fecha" class="form-label">Fecha:</label>
-            <input type="date" name="fecha" id="fecha" class="form-control" required>
+            <input type="date" name="fecha" id="fecha" class="form-control" required disabled>
         </div>
 
         <h5>Medicamentos</h5>
