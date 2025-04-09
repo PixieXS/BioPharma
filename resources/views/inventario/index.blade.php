@@ -66,6 +66,28 @@
             background-color: #5a6268;
             border-color: #545b62;
         }
+
+        .alerta-vencidos {
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .alerta-vencidos strong {
+        font-weight: bold;
+    }
+
+    .table tr.alerta {
+        background-color: #f8d7da;
+    }
+
+    .table tr.alerta td {
+        color: #721c24;
+    }
     </style>
 </head>
 <body>
@@ -77,51 +99,58 @@
 
         <div class="search-bar">
             <div class="d-flex">
-                <form action="{{ route('medicamento.search') }}" method="GET" class="d-flex">
+                <form action="{{ route('medicamento.searchInventario') }}" method="GET" class="d-flex">
                     <select class="form-control" name="tipo_busqueda">
-                        <option value="nombre">Por Nombre</option>
-                        <option value="descripcion">Por Descripción</option>
+                        <option value="nombre">Nombre o Descripcion</option>
                     </select>
                     <input type="text" class="form-control" name="query" placeholder="Buscar..." required>
                     <button class="btn btn-primary btn-custom" type="submit">Buscar</button>
                 </form>
-    
-                <a href="{{ route('menubasico') }}" class="btn btn-secondary btn-custom ml-3">Volver al Menú</a>
+
+                <a href="{{ route('medicamento.resetInventario') }}" class="btn btn-secondary btn-custom ml-3">Ver Todos los Medicamentos</a>
             </div>
+
+            <a href="{{ route('menubasico') }}" class="btn btn-secondary btn-custom ml-3">Volver al Menú Principal</a>
         </div>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Stock</th>
-                    <th>Unidad de Medida</th>
-                    <th>Precio</th>
-                    <th>Fecha de Vencimiento</th>
-                    <th>Alerta Vencimiento</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($medicamentos as $medicamento)
-                    <tr>
-                        <td>{{ $medicamento->id }}</td>
-                        <td>{{ $medicamento->nombre }}</td>
-                        <td>{{ $medicamento->descripcion }}</td>
-                        <td>{{ $medicamento->stock }}</td>
-                        <td>{{ $medicamento->unidad_medida }}</td>
-                        <td>{{ $medicamento->precio }}</td>
-                        <td>{{ $medicamento->fecha_vencimiento }}</td>
-                        <td>{{ $medicamento->alerta_vencimiento ? 'Sí' : 'No' }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="8" class="text-center">No se encontraron medicamentos.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+        @if(session('alertaVencidos'))
+    <div class="alerta-vencidos">
+        <strong>Alerta:</strong> Algunos medicamentos están vencidos. Por favor, revisa los medicamentos de la lista.
+    </div>
+@endif
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Stock</th>
+            <th>Unidad de Medida</th>
+            <th>Precio</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Alerta Vencimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($medicamentos as $medicamento)
+            <tr class="{{ $medicamento->alerta_vencimiento ? 'alerta' : '' }}">
+                <td>{{ $medicamento->id }}</td>
+                <td>{{ $medicamento->nombre }}</td>
+                <td>{{ $medicamento->descripcion }}</td>
+                <td>{{ $medicamento->stock }}</td>
+                <td>{{ $medicamento->unidad_medida }}</td>
+                <td>{{ $medicamento->precio }}</td>
+                <td>{{ $medicamento->fecha_vencimiento }}</td>
+                <td>{{ $medicamento->alerta_vencimiento ? 'Sí' : 'No' }}</td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="10" class="text-center">No se encontraron medicamentos.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

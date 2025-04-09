@@ -38,6 +38,8 @@ Route::get('/medicamento', [MedicamentoController::class, 'index'])->name('medic
 Route::get('/medicamentocreate/{id}', [MedicamentoController::class, 'create']);
 Route::get('/medicamentoedit/{id}', [MedicamentoController::class, 'edit']);
 Route::get('/medicamento/eliminar/{id}', [MedicamentoController::class, 'confirmDelete'])->name('medicamento.delete');
+Route::get('/inventario/buscar', [MedicamentoController::class, 'search'])->name('inventario.searchInventario');
+
 
 // Rutas para EntradaController
 Route::get('/entrada', [EntradaController::class, 'index'])->name('entrada.index');

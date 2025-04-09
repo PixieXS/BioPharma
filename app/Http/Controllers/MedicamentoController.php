@@ -165,4 +165,23 @@ class MedicamentoController extends Controller
         $medicamentos = Medicamento::all();
         return view('medicamento.index', compact('medicamentos'));
     }
+
+    public function searchInventario(Request $request)
+{
+    $query = $request->input('query');
+
+    $medicamentos = Medicamento::when($query, function ($q) use ($query) {
+        return $q->where('nombre', 'LIKE', '%' . $query . '%')
+                 ->orWhere('descripcion', 'LIKE', '%' . $query . '%');
+    })->get();
+
+    return view('inventario.index', compact('medicamentos')); 
+}
+
+public function resetInventario()
+{
+    $medicamentos = Medicamento::all();
+    return view('inventario.index', compact('medicamentos'));
+}
+
 }
