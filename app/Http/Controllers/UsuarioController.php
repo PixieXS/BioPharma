@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-
 
 class UsuarioController extends Controller
 {
@@ -113,24 +111,16 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(string $id)
     {
-        $request->validate([
-            'password' => 'required',
-        ]);
-    
         $usuario = Usuario::findOrFail($id);
-        $usuarioLogueado = Auth::user();
     
-        // Validar la contraseña del usuario logueado
-        if (!Hash::check($request->password, $usuarioLogueado->password)) {
-            return back()->withErrors(['password' => 'La contraseña ingresada no es correcta.'])->withInput();
-        }
-    
+        // Evitar que un usuario se elimine a sí mismo
         if ($usuario->id == auth()->id()) {
             return back()->withErrors(['error' => 'No puedes eliminar tu propio usuario.']);
         }
     
+        // Evitar eliminar al último usuario root activo
         if ($usuario->rol === 'root') {
             $rootActivo = Usuario::where('rol', 'root')
                 ->where('estado', 'activo')
@@ -142,11 +132,11 @@ class UsuarioController extends Controller
             }
         }
     
+        // Eliminar el usuario
         $usuario->delete();
     
         return redirect()->route('usuario.index')->with('success', 'Usuario eliminado exitosamente');
     }
-    
     
     /**
      * Mostrar la confirmación para eliminar un usuario.
