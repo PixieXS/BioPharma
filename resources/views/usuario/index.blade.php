@@ -105,7 +105,7 @@
                         @elseif ($esRootActivo && !$hayOtroRootActivo)
                             <button class="btn btn-secondary btn-custom" disabled>Último Root</button>
                         @else
-                            <a href="{{ route('usuario.confirmDelete', $u->id) }}" class="btn btn-danger btn-custom">Eliminar</a>
+                        <a href="{{ route('usuario.confirmDelete', $u->id) }}" class="btn btn-danger btn-custom">Eliminar</a>
                         @endif
                     </td>
                 </tr>

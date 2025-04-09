@@ -28,7 +28,7 @@ Route::get('/menubasico', function () {
 
 // Rutas para UsuarioController
 Route::resource('/usuario', 'App\Http\Controllers\UsuarioController');
-Route::get('/usuarioelim/{id}', [UsuarioController::class, 'confirmDelete'])->name('usuario.confirmDelete');
+Route::get('usuario/{id}/confirm-delete', [UsuarioController::class, 'confirmDelete'])->name('usuario.confirmDelete');
 
 
 // Rutas para MedicamentoController
