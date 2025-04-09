@@ -115,6 +115,7 @@ class UsuarioController extends Controller
     public function confirmDelete($id)
     {
         $usuario = Usuario::findOrFail($id);
+        dd($usuario); // Para depuración
         return view('usuario.delete', compact('usuario'));
     }
 }

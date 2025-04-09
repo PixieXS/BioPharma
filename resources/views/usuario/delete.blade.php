@@ -36,7 +36,6 @@
     </style>
 </head>
 <body>
-@php dd($usuario); @endphp
     <div class="container">
         <h1>Eliminar Usuario</h1>
 
