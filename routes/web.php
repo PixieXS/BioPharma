@@ -10,6 +10,7 @@ use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\DevolucionController;
+use App\Http\Controllers\InventarioController;
 
 
 // Rutas para Login
@@ -38,9 +39,6 @@ Route::get('/medicamento', [MedicamentoController::class, 'index'])->name('medic
 Route::get('/medicamentocreate/{id}', [MedicamentoController::class, 'create']);
 Route::get('/medicamentoedit/{id}', [MedicamentoController::class, 'edit']);
 Route::get('/medicamento/eliminar/{id}', [MedicamentoController::class, 'confirmDelete'])->name('medicamento.delete');
-Route::get('/inventario/buscar', [MedicamentoController::class, 'search'])->name('medicamento.searchInventario');
-Route::get('/inventario', [MedicamentoController::class, 'index'])->name('medicamento.resetInventario');
-
 
 // Rutas para EntradaController
 Route::get('/entrada', [EntradaController::class, 'index'])->name('entrada.index');
@@ -90,7 +88,6 @@ Route::delete('/devolucion/{id}/delete', [DevolucionController::class, 'destroy'
 
 
 // Ruta para Inventario
-Route::get('/inventario', function () {
-    $medicamentos = Medicamento::all();
-    return view('inventario.index', compact('medicamentos'));
-});
+Route::get('/inventario', [InventarioController::class, 'index'])->name('inventario.index');
+Route::get('/inventario/search', [InventarioController::class, 'searchInventario'])->name('medicamento.searchInventario');
+Route::get('/inventario/reset', [InventarioController::class, 'resetInventario'])->name('medicamento.resetInventario');
