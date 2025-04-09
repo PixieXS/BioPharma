@@ -48,13 +48,13 @@
             </div>
         @endif
 
-        <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST">
+        <form action="{{ route('usuario.destroy', $usuari->id) }}" method="POST">
             @csrf
             @method('DELETE')
 
             <div class="alert alert-warning text-center">
                 <strong>¿Estás seguro?</strong><br>
-                El usuario <strong>{{ $usuario->nombre }}</strong> será eliminado permanentemente.<br>
+                El usuario <strong>{{ $usuari->nombre }}</strong> será eliminado permanentemente.<br>
                 <small>Esta acción no se puede deshacer.</small>
             </div>
 
