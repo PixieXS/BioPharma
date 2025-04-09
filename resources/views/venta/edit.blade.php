@@ -20,6 +20,9 @@
         @csrf
         @method('PUT')
         
+        <!-- Campo oculto con la fecha actual -->
+        <input type="hidden" name="fecha_edicion" value="{{ now()->format('Y-m-d H:i:s') }}">
+
         <div class="mb-3">
             <label for="usuario_id" class="form-label">Usuario</label>
             <select class="form-select" id="usuario_id" name="usuario_id" required disabled>
@@ -85,7 +88,7 @@
 </div>
 
 <script>
-    let index = {{ count($venta->detalleVentas) }};
+    let index = {{ count($venta->detalleVentas) }}; 
     const medicamentos = @json($medicamentos);
     const container = document.getElementById('medicamentos-container');
 

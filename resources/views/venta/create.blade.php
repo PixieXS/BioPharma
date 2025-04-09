@@ -26,6 +26,18 @@
             margin-bottom: 30px;
         }
     </style>
+    <script>
+        // Establecer la fecha actual en el campo de fecha cuando la página se carga
+        window.onload = function() {
+            const fechaInput = document.querySelector('input[name="fecha"]');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2); // Asegura que el mes tenga dos dígitos
+            const day = ('0' + today.getDate()).slice(-2); // Asegura que el día tenga dos dígitos
+            const currentDate = `${year}-${month}-${day}`;
+            fechaInput.value = currentDate; // Establece la fecha actual
+        };
+    </script>
 </head>
 <body>
 <div class="container my-5">
@@ -38,10 +50,10 @@
 
         <!-- Usuario -->
         <div class="mb-3">
-    <label for="usuario_id" class="form-label">Usuario que realiza la venta:</label>
-    <input type="text" id="usuario_id" class="form-control" value="{{ Auth::user()->nombre }}" disabled>
-    <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
-</div>
+            <label for="usuario_id" class="form-label">Usuario que realiza la venta:</label>
+            <input type="text" id="usuario_id" class="form-control" value="{{ Auth::user()->nombre }}" disabled>
+            <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
+        </div>
 
         <!-- Fecha -->
         <div class="mb-3">
@@ -60,8 +72,7 @@
                             <option 
                                 value="{{ $med->id }}" 
                                 data-precio="{{ $med->precio }}" 
-                                data-stock="{{ $med->stock }}"
-                            >
+                                data-stock="{{ $med->stock }}">
                                 {{ $med->nombre }}
                             </option>
                         @endforeach
@@ -120,8 +131,7 @@
                             <option 
                                 value="{{ $med->id }}" 
                                 data-precio="{{ $med->precio }}" 
-                                data-stock="{{ $med->stock }}"
-                            >
+                                data-stock="{{ $med->stock }}"/>
                                 {{ $med->nombre }}
                             </option>
                         @endforeach
