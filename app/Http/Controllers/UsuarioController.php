@@ -48,29 +48,29 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
-        $usuari = Usuario::findOrFail($id);
+        $user = Usuario::findOrFail($id);
         return view('usuario.edit', compact('usuari'));
     }
 
     public function update(Request $request, string $id)
     {
-        $usuari = Usuario::findOrFail($id);
+        $user = Usuario::findOrFail($id);
 
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios,email,' . $usuari->id,
+            'email' => 'required|email|unique:usuarios,email,' . $user->id,
             'rol' => 'required|in:basico,root',
             'estado' => 'required|in:activo,inactivo',
         ]);
 
         if ($request->filled('password')) {
-            $usuari->password = bcrypt($request->password);
+            $user->password = bcrypt($request->password);
         }
 
-        if ($usuari->rol === 'root' && $request->estado === 'inactivo') {
+        if ($user->rol === 'root' && $request->estado === 'inactivo') {
             $rootActivo = Usuario::where('rol', 'root')
                 ->where('estado', 'activo')
-                ->where('id', '!=', $usuari->id)
+                ->where('id', '!=', $user->id)
                 ->exists();
 
             if (!$rootActivo) {
@@ -78,7 +78,7 @@ class UsuarioController extends Controller
             }
         }
 
-        $usuari->update([
+        $user->update([
             'nombre' => $request->nombre,
             'email' => $request->email,
             'rol' => $request->rol,
