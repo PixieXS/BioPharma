@@ -40,21 +40,30 @@
     <div class="container">
         <h1>Eliminar Usuario</h1>
 
+        {{-- Errores --}}
+        @if ($errors->any())
+            <div class="alert alert-danger text-center">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
         <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST">
-    @csrf
-    @method('DELETE')
+            @csrf
+            @method('DELETE')
 
-    <div class="alert alert-warning text-center">
-        <strong>¿Estás seguro?</strong><br>
-        El usuario <strong>{{ $usuario->nombre }}</strong> será eliminado permanentemente.<br>
-        <small>Esta acción no se puede deshacer.</small>
-    </div>
+            <div class="alert alert-warning text-center">
+                <strong>¿Estás seguro?</strong><br>
+                El usuario <strong>{{ $usuario->nombre }}</strong> será eliminado permanentemente.<br>
+                <small>Esta acción no se puede deshacer.</small>
+            </div>
 
-    <div class="btn-group-custom">
-        <button type="submit" class="btn btn-danger btn-custom">Sí, Eliminar</button>
-        <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
-    </div>
-</form>
+            <div class="btn-group-custom">
+                <button type="submit" class="btn btn-danger btn-custom">Sí, Eliminar</button>
+                <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
+            </div>
+        </form>
 
     </div>
 
