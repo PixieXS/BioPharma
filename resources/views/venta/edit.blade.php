@@ -19,9 +19,12 @@
     <form action="{{ route('venta.update', $venta->id) }}" method="POST">
         @csrf
         @method('PUT')
-        
-        <!-- Campo oculto con la fecha actual -->
-        <input type="hidden" name="fecha_edicion" value="{{ now()->format('Y-m-d H:i:s') }}">
+
+        <!-- Campo de Fecha (deshabilitado) -->
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="text" id="fecha" name="fecha" class="form-control" value="{{ $venta->fecha }}" disabled>
+        </div>
 
         <div class="mb-3">
             <label for="usuario_id" class="form-label">Usuario</label>
@@ -33,7 +36,7 @@
                 @endforeach
             </select>
         </div>
-        
+
         <h4 class="mt-4">Medicamentos:</h4>
         <div id="medicamentos-container">
             @foreach($venta->detalleVentas as $index => $detalle)
