@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Medicamento;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class InventarioController extends Controller
 {
