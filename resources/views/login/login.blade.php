@@ -88,6 +88,7 @@ body {
     <div class="container">
         <div class="login-container">
             <h1>BioPharmacy</h1>
+            <p style="margin-top: -10px; color: #6c757d; font-size: 14px;">versión 1.0</p>
             <h2>Iniciar Sesión</h2>
 
             @if ($errors->any())
