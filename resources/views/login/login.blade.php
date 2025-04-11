@@ -113,7 +113,7 @@
   <div class="main-container">
     <div class="left-panel">
       <h1>BIOPHARMA</h1>
-      <img src="{{ asset('login/login.png') }}" alt="Imagen login" />
+      <img src="{{ asset('login.png') }}" alt="Imagen login" />
     </div>
 
     <div class="right-panel">
