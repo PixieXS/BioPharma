@@ -6,6 +6,7 @@
     <title>Menú Admin - Farmacia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -30,6 +31,7 @@
             align-items: center;
             gap: 20px;
             margin-top: 30px;
+            margin-bottom: 50px;
         }
         .menu-btn {
             width: 320px;
@@ -50,10 +52,7 @@
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-        .menu-btn i {
-            margin-right: 12px;
-            font-size: 26px;
-        }
+        .menu-btn i { margin-right: 12px; font-size: 26px; }
         .usuarios { background-color: #2d6a4f; }
         .usuarios:hover { background-color: #1b4332; }
         .medicamentos { background-color: #457b9d; }
@@ -84,6 +83,35 @@
             transition: background-color 0.3s;
         }
         .logout:hover { background-color: #a4161a; }
+        /* Dashboard extra */
+        .dashboard {
+            margin-top: 60px;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2d6a4f;
+        }
+        .stat-card p {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1d3557;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +135,64 @@
         <a href="/venta" class="menu-btn ventas"><i class="fas fa-shopping-cart"></i>Ventas</a>
         <a href="/devolucion" class="menu-btn devoluciones"><i class="fas fa-undo"></i>Devoluciones</a>
     </div>
-    
+
+    <div class="dashboard">
+        <h2 class="text-center mb-4">Estadísticas del Mes</h2>
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Ventas</h3>
+                <p>152</p>
+            </div>
+            <div class="stat-card">
+                <h3>Medicamento más vendido</h3>
+                <p>Ibuprofeno</p>
+            </div>
+            <div class="stat-card">
+                <h3>Devoluciones</h3>
+                <p>8</p>
+            </div>
+            <div class="stat-card">
+                <h3>Top Vendedor</h3>
+                <p>Ana López</p>
+            </div>
+            <div class="stat-card">
+                <h3>Ganancias (L)</h3>
+                <p>18,250</p>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <canvas id="graficoVentas" height="100"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('graficoVentas').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
+                datasets: [{
+                    label: 'Ventas por Mes',
+                    data: [40, 60, 55, 75, 90],
+                    backgroundColor: '#2d6a4f'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
