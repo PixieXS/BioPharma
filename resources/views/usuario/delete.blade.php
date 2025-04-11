@@ -33,6 +33,15 @@
             gap: 15px;
             margin-top: 25px;
         }
+        .alert-warning {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-control {
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -49,27 +58,25 @@
         @endif
 
         <form action="{{ route('usuario.destroy', $usuari->id) }}" method="POST">
-    @csrf
-    @method('DELETE')
+            @csrf
+            @method('DELETE')
 
-    <div class="alert alert-warning text-center">
-        <strong>¿Estás seguro?</strong><br>
-        El usuario <strong>{{ $usuari->nombre }}</strong> será eliminado permanentemente.<br>
-        <small>Esta acción no se puede deshacer.</small>
-    </div>
+            <div class="alert alert-warning text-center">
+                <strong>¿Estás seguro?</strong><br>
+                El usuario <strong>{{ $usuari->nombre }}</strong> será eliminado permanentemente.<br>
+                <small>Esta acción no se puede deshacer.</small>
+            </div>
 
-    <div class="form-group">
-        <label for="password" class="form-label">Introduce tu contraseña para confirmar:</label>
-        <input type="password" name="password" id="password" class="form-control" required>
-    </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Introduce tu contraseña para confirmar:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
 
-    <div class="btn-group-custom">
-        <button type="submit" class="btn btn-danger btn-custom">Sí, Eliminar</button>
-        <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
-    </div>
-</form>
-
-
+            <div class="btn-group-custom">
+                <button type="submit" class="btn btn-danger btn-custom">Sí, Eliminar</button>
+                <a href="{{ route('usuario.index') }}" class="btn btn-secondary btn-custom">Cancelar</a>
+            </div>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
