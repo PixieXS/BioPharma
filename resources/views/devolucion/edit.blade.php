@@ -15,30 +15,21 @@
                 @method('PUT')
 
                 {{-- Detalle de venta --}}
-<div class="mb-3">
-    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
-    
-    <select class="form-select" disabled>
-        @foreach ($detalleVentas as $detalle)
-            <option 
-                value="{{ $detalle->id }}" 
-                data-cantidad="{{ $detalle->cantidad }}" 
-                data-devuelto="{{ $detalle->devoluciones_sum() }}" 
-                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
-                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-            </option>
-        @endforeach
-    </select>
+                <div class="mb-3">
+                    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
 
-    {{-- Campo oculto para enviar el valor --}}
-    <input type="hidden" name="detalle_venta_id" value="{{ $devolucion->detalle_venta_id }}">
+                    {{-- Mostrar info legible --}}
+                    <input type="text" class="form-control" readonly
+                        value="Venta #{{ $devolucion->detalleVenta->venta_id }} - {{ $devolucion->detalleVenta->medicamento->nombre }} (Comprado: {{ $devolucion->detalleVenta->cantidad }})">
 
-    @error('detalle_venta_id')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-    <small id="infoDevolucion" class="form-text text-muted mt-2"></small>
-</div>
+                    {{-- Enviar el ID oculto --}}
+                    <input type="hidden" name="detalle_venta_id" value="{{ $devolucion->detalle_venta_id }}">
 
+                    @error('detalle_venta_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <small id="infoDevolucion" class="form-text text-muted mt-2"></small>
+                </div>
 
                 {{-- Usuario --}}
                 <div class="mb-3">
@@ -89,37 +80,20 @@
         const day = ('0' + today.getDate()).slice(-2);
         fechaInput.value = `${year}-${month}-${day}`;
 
-        const selectDetalle = document.getElementById('detalle_venta_id');
+        // Valores para validación de cantidad
         const cantidadInput = document.getElementById('cantidad');
         const infoText = document.getElementById('infoDevolucion');
         const errorText = document.getElementById('errorCantidad');
         const form = document.getElementById('formDevolucion');
 
-        function actualizarInfo() {
-            const option = selectDetalle.options[selectDetalle.selectedIndex];
-            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
-            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
-            const restante = comprado - devuelto;
+        const comprado = {{ $devolucion->detalleVenta->cantidad }};
+        const devuelto = {{ $devolucion->detalleVenta->devoluciones_sum() }};
+        const restante = comprado - devuelto;
 
-            if (option.value) {
-                infoText.textContent = `Ya se devolvieron ${devuelto} unidades de ${comprado}. Puedes devolver hasta ${restante}.`;
-            } else {
-                infoText.textContent = '';
-            }
-        }
+        infoText.textContent = `Ya se devolvieron ${devuelto} unidades de ${comprado}. Puedes devolver hasta ${restante}.`;
 
-        // Mostrar info al cambiar el detalle
-        selectDetalle.addEventListener('change', actualizarInfo);
-        actualizarInfo();
-
-        // Validar cantidad antes de enviar
         cantidadInput.addEventListener('input', function() {
-            const option = selectDetalle.options[selectDetalle.selectedIndex];
-            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
-            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
-            const restante = comprado - devuelto;
             const cantidad = parseInt(cantidadInput.value);
-
             if (cantidad > restante) {
                 errorText.classList.remove('d-none');
             } else {
@@ -128,19 +102,13 @@
         });
 
         form.addEventListener('submit', function(e) {
-            const option = selectDetalle.options[selectDetalle.selectedIndex];
-            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
-            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
-            const restante = comprado - devuelto;
             const cantidad = parseInt(cantidadInput.value);
-
             if (cantidad > restante) {
                 e.preventDefault();
                 errorText.classList.remove('d-none');
             }
         });
     };
-</script>
-
+    </script>
 </body>
 </html>
