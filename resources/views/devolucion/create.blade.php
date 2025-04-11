@@ -27,13 +27,13 @@
                 <div class="mb-3">
                     <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
                     <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
-                        <option value="">Seleccione un detalle de venta</option>
-                        @foreach ($detalleVentas as $detalle)
-                            <option value="{{ $detalle->id }}">
-                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-                            </option>
-                        @endforeach
-                    </select>
+    <option value="">Seleccione un detalle de venta</option>
+    @foreach ($detalleVentas as $detalle)
+        <option value="{{ $detalle->id }}">
+            Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+        </option>
+    @endforeach
+</select>
                 </div>
 
                 <div class="mb-3">
