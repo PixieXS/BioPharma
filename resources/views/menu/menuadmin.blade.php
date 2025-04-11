@@ -149,12 +149,6 @@
     <a href="/venta"><i class="fas fa-shopping-cart"></i> Ventas</a>
     <a href="/devolucion"><i class="fas fa-undo"></i> Devoluciones</a>
     <pre>
-    {{ var_dump($totalUsuarios) }}
-    {{ var_dump($ventasMes) }}
-    {{ var_dump($inventario) }}
-    {{ var_dump($entradasMes) }}
-    {{ var_dump($salidasMes) }}
-    {{ var_dump($devolucionesMes) }}
 </pre>
   </div>
   
