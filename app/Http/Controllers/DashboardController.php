@@ -15,30 +15,47 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        dd(Venta::count(), Entrada::count(), Salida::count(), Devolucion::count());
-        
-        $mesActual = Carbon::now()->month;
+{
+    $mesActual = Carbon::now()->month;
+    $anioActual = Carbon::now()->year; // Obtenemos el año actual
 
-        $totalUsuarios = User::count();
-        $ventasMes = Venta::whereMonth('created_at', $mesActual)->sum('total');
-        $inventario = Medicamento::sum('cantidad');
-        $entradasMes = Entrada::whereMonth('created_at', $mesActual)->count();
-        $salidasMes = Salida::whereMonth('created_at', $mesActual)->count();
-        $devolucionesMes = Devolucion::whereMonth('created_at', $mesActual)->count();
+    $totalUsuarios = User::count();
 
-        $usuario = Auth::user();
+    // Aseguramos que solo tomamos las ventas del mes y año actuales
+    $ventasMes = Venta::whereMonth('created_at', $mesActual)
+                      ->whereYear('created_at', $anioActual)
+                      ->sum('total');
 
-        return view('dashboard', compact(
-            'totalUsuarios',
-            'ventasMes',
-            'inventario',
-            'entradasMes',
-            'salidasMes',
-            'devolucionesMes',
-            'usuario'
-        ));
-    }
+    // El inventario total no depende del mes, por eso solo se consulta una vez
+    $inventario = Medicamento::sum('cantidad');
+
+    // Lo mismo para las entradas, salidas y devoluciones: añadiendo el filtro de año
+    $entradasMes = Entrada::whereMonth('created_at', $mesActual)
+                          ->whereYear('created_at', $anioActual)
+                          ->count();
+
+    $salidasMes = Salida::whereMonth('created_at', $mesActual)
+                        ->whereYear('created_at', $anioActual)
+                        ->count();
+
+    $devolucionesMes = Devolucion::whereMonth('created_at', $mesActual)
+                                 ->whereYear('created_at', $anioActual)
+                                 ->count();
+
+    $usuario = Auth::user();
+
+    // Retornamos todos los datos a la vista
+    return view('dashboard', compact(
+        'totalUsuarios',
+        'ventasMes',
+        'inventario',
+        'entradasMes',
+        'salidasMes',
+        'devolucionesMes',
+        'usuario'
+    ));
+}
+
 
     /**
      * Show the form for creating a new resource.
