@@ -17,13 +17,8 @@ use App\Http\Controllers\InventarioController;
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/menuadmin', function () {
-    return view('menu.menuadmin');
-})->middleware('auth')->name('menuadmin');
-
-Route::get('/menubasico', function () {
-    return view('menu.menubasico');
-})->middleware('auth')->name('menubasico');
+Route::get('/menuadmin', [DashboardController::class, 'index'])->middleware('auth')->name('menuadmin');
+Route::get('/menubasico', [DashboardController::class, 'index'])->middleware('auth')->name('menubasico');
 
 
 // Rutas para UsuarioController
