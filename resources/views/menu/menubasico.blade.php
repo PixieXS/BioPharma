@@ -72,20 +72,44 @@
       transform: scale(1.05);
     }
     .main-content {
-      margin-left: 260px;
-      margin-top: 60px;
-      padding: 20px;
-      height: calc(100% - 60px);
-      overflow-y: auto;
-      background: #f4f7f8;
-    }
-    .main-title {
-      font-size: 32px;
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 30px;
-      color: #333;
-    }
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 800px; /* Ancho máximo */
+    height: calc(100vh - 100px); /* Ajusta la altura al 100% de la pantalla menos márgenes */
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.main-content p {
+    font-size: 18px;
+    text-align: center;
+    color: #555;
+    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    margin-top: 10px;
+}
+
+.main-content:hover {
+    background-color: #e8f4f9; /* Color al pasar el ratón por encima */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
   </style>
 </head>
 <body>
@@ -110,11 +134,11 @@
     </div>
   </div>
   
-  <!-- Main Content -->
-  <div class="main-content">
+ <!-- Main Content -->
+<div class="main-content">
     <h1 class="main-title">Menú</h1>
     <p>Selecciona una opción del menú lateral para gestionar las ventas, inventarios o devoluciones.</p>
-  </div>
+</div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
