@@ -20,6 +20,8 @@
       color: white;
       font-size: 24px;
       font-weight: bold;
+      text-align: center;
+      align-items:center;
     }
     h1 {
       font-size: 32px;
