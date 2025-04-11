@@ -26,8 +26,10 @@
       justify-content: center;
       align-items: center;
       padding: 40px;
+      position: relative;
     }
 
+    /* Corazón verde (solo contorno) */
     .left-panel::before {
       content: "";
       position: absolute;
@@ -40,16 +42,17 @@
       clip-path: polygon(50% 0%, 0% 35%, 50% 100%, 100% 35%);
       z-index: -1; 
     }
+
     .left-panel img {
-      max-width: 200px;
-      height: 200px;
+      max-width: 150px;
+      height: auto;
     }
 
     .left-panel h1 {
       font-size: 3rem;
       font-weight: bold;
       margin-top: 30px;
-      color: #333;
+      color: #4CAF50; 
       text-align: center;
     }
 
