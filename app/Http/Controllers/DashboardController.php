@@ -36,7 +36,6 @@ class DashboardController extends Controller
             'devolucionesMes',
             'usuario'
         ));
-        dd(Venta::pluck('created_at'));
     }
 
     /**
