@@ -21,10 +21,11 @@ class DetalleVenta extends Model
         return $this->belongsTo(Medicamento::class, 'medicamento_id');
     }
     
-    public function devoluciones() {
+    public function devoluciones()
+    {
         return $this->hasMany(Devolucion::class);
     }
-    
+
     public function devoluciones_sum() {
         return $this->devoluciones()->sum('cantidad');
     }
