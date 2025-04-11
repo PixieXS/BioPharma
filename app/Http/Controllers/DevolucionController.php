@@ -25,7 +25,6 @@ class DevolucionController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all()); 
         $request->validate([
             'detalle_venta_id' => 'required|exists:detalle_ventas,id',
             'usuario_id' => 'required|exists:usuarios,id',
