@@ -18,45 +18,46 @@ class DevolucionController extends Controller
 
     public function create()
     {
-        $detalleVentas = DetalleVenta::with('medicamento')->get(); // Para que puedas mostrar el nombre del medicamento
+        $detalleVentas = DetalleVenta::with('medicamento')->get(); // Para mostrar nombre del medicamento
         $usuarios = Usuario::all();
         return view('devolucion.create', compact('detalleVentas', 'usuarios'));
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'detalle_venta_id' => 'required|exists:detalle_ventas,id',
-        'usuario_id' => 'required|exists:usuarios,id',
-        'cantidad' => 'required|integer|min:1',
-        'fecha' => 'required|date',
-        'motivo' => 'required|string|max:255',
-    ]);
+    {
+        $request->validate([
+            'detalle_venta_id' => 'required|exists:detalle_ventas,id',
+            'usuario_id' => 'required|exists:usuarios,id',
+            'cantidad' => 'required|integer|min:1',
+            'fecha' => 'required|date',
+            'motivo' => 'required|string|max:255',
+        ]);
 
-    $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
+        $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
 
-    $devolucionesPrevias = Devolucion::where('detalle_venta_id', $detalle->id)->sum('cantidad');
+        // Obtener las devoluciones previas
+        $devolucionesPrevias = Devolucion::where('detalle_venta_id', $detalle->id)->sum('cantidad');
 
-    $totalTrasNuevaDevolucion = $devolucionesPrevias + $request->cantidad;
+        $totalTrasNuevaDevolucion = $devolucionesPrevias + $request->cantidad;
 
-    if ($totalTrasNuevaDevolucion > $detalle->cantidad) {
-        return back()->withErrors(['cantidad' => 'La cantidad total devuelta excede la cantidad comprada.'])->withInput();
+        if ($totalTrasNuevaDevolucion > $detalle->cantidad) {
+            return back()->withErrors(['cantidad' => 'La cantidad total devuelta excede la cantidad comprada.'])->withInput();
+        }
+
+        // Crear nueva devolución
+        $devolucion = Devolucion::create([
+            'detalle_venta_id' => (int)$request->detalle_venta_id,
+            'usuario_id' => $request->usuario_id,
+            'cantidad' => $request->cantidad,
+            'fecha' => $request->fecha,
+            'motivo' => $request->motivo,
+        ]);
+
+        // Actualizar stock del medicamento
+        $detalle->medicamento->decrement('stock', $devolucion->cantidad);
+
+        return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
     }
-
-    $devolucion = Devolucion::create([
-        'detalle_venta_id' => (int)$request->detalle_venta_id,
-        'usuario_id' => $request->usuario_id,
-        'cantidad' => $request->cantidad,
-        'fecha' => $request->fecha,
-        'motivo' => $request->motivo,
-    ]);
-
-    $detalle->medicamento->decrement('stock', $devolucion->cantidad);
-
-    return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
-}
-
-    
 
     public function show(string $id)
     {
@@ -114,7 +115,6 @@ class DevolucionController extends Controller
     
         return redirect()->route('devolucion.index')->with('success', 'Devolución actualizada correctamente.');
     }
-    
 
     public function destroy(string $id)
     {
