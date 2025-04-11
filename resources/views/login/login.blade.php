@@ -34,6 +34,12 @@
       max-width: 250px;
       height: 250px;
       filter: drop-shadow(0px 4px 15px rgba(255, 255, 255, 0.6)); 
+      animation: logoPulse 3s infinite ease-in-out;
+    }
+
+    @keyframes logoPulse {
+    0%, 100% { filter: drop-shadow(0px 4px 15px rgba(255, 255, 255, 0.4)); }
+    50% { filter: drop-shadow(0px 8px 25px rgba(255, 255, 255, 0.8)); }
     }
 
     .left-panel h1 {
