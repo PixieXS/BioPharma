@@ -21,6 +21,7 @@
                         <option value="">Seleccione un detalle de venta</option>
                         @foreach ($detalleVentas as $detalle)
                             <option 
+                                 console.log('Cantidad:', comprado, 'Devuelto:', devuelto, 'Restante:', restante);
                                 value="{{ $detalle->id }}" 
                                 data-cantidad="{{ $detalle->cantidad }}" 
                                 data-devuelto="{{ $detalle->devoluciones_sum ?? 0 }}"
