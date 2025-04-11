@@ -9,6 +9,7 @@ use App\Models\Entrada;
 use App\Models\Salida;
 use App\Models\Devolucion;
 use App\Models\Medicamento;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
