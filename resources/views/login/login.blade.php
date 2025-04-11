@@ -41,7 +41,7 @@
       margin-top: 20px;
       color: #4CAF50;
       text-align: center;
-      text-shadow: 2px 2px 8px #ffffff;
+      text-shadow: 1px 1px 4px #ffffff;
     }
 
     .right-panel {
