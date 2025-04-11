@@ -10,12 +10,16 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #edf2f7;
-            padding: 20px;
+            margin: 0;
         }
-        h1 {
-            font-size: 36px;
-            color: #343a40;
-            margin-bottom: 30px;
+        .navbar {
+            background-color: #2d6a4f;
+            color: white;
+            padding: 10px;
+        }
+        .navbar .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
         }
         .user-info {
             text-align: center;
@@ -27,18 +31,19 @@
         .menu-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            align-items: flex-start;
             margin-top: 30px;
+            gap: 15px;
+            padding: 20px;
         }
         .menu-btn {
-            width: 320px;
-            height: 80px;
-            font-size: 20px;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
             font-weight: bold;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             border-radius: 10px;
             border: none;
             color: white;
@@ -58,8 +63,6 @@
         .usuarios:hover { background-color: #1b4332; }
         .medicamentos { background-color: #457b9d; }
         .medicamentos:hover { background-color: #1d3557; }
-        .inventario { background-color: #6a4c93; }
-        .inventario:hover { background-color: #3c096c; }
         .entradas-entradas { background-color:rgb(83, 190, 61); }
         .entradas-entradas:hover { background-color:rgb(73, 165, 54); }
         .salidas-salidas { background-color: #e76f51; }
@@ -87,17 +90,16 @@
     </style>
 </head>
 <body>
-    <div class="logout-container">
+    <nav class="navbar">
+        <span class="navbar-brand">Farmacia Admin</span>
         <a href="/login" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-    </div>
-
+    </nav>
+    
     @if($usuario)
         <div class="user-info">
             <p>Bienvenido, <span style="color: #2d6a4f;">{{ $usuario->nombre }}</span> ({{ ucfirst($usuario->rol) }})</p>
         </div>
     @endif
-    
-    <h1 class="text-center">Menú Administrativo</h1>
     
     <div class="menu-container">
         <a href="/usuario" class="menu-btn usuarios"><i class="fas fa-users"></i>Usuarios</a>
