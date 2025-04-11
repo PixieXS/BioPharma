@@ -13,15 +13,28 @@
       margin: 0;
       height: 100vh;
     }
+    .navbar {
+      background-color: #283c86;
+    }
+    .navbar-brand {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
     h1 {
       font-size: 32px;
       color: #333;
-      margin-bottom: 30px;
       text-align: center;
+      margin: 30px 0;
     }
     .container {
       margin-top: 30px;
       max-width: 1200px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
     }
     .btn-custom {
       border-radius: 25px;
@@ -48,19 +61,18 @@
       margin-right: 10px;
     }
     .page-header {
-      border-bottom: 2px solid #dee2e6;
-      padding-bottom: 15px;
       margin-bottom: 30px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="page-header">
-      <h1>Lista De Usuarios</h1>
-    </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Lista de Usuarios</a>
+  </nav>
 
+  <div class="container">
     {{-- Mensajes de éxito y error --}}
     @if (session('success'))
       <div class="alert alert-success">
