@@ -8,6 +8,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
         }
         h1 {
             font-weight: bold;
@@ -50,12 +52,15 @@
             font-size: 16px;
             text-align: center;
         }
+        .badge {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="container my-5">
-        <div class="page-header">
-            <h1 class="text-center">Lista De Ventas</h1>
+        <div class="page-header text-center">
+            <h1>Lista De Ventas</h1>
         </div>
         
         <div class="btn-group d-flex justify-content-center mb-4">
@@ -104,9 +109,9 @@
                         </td>
                         <td>{{ \Carbon\Carbon::parse($venta->fecha)->format('d/m/Y') }}</td>
                         <td>
-                        <a class="btn btn-info btn-sm" href="{{ url('detalleventa?ventaId=' . $venta->id) }}">
-    Ver Detalles
-</a>
+                            <a class="btn btn-info btn-sm" href="{{ url('detalleventa?ventaId=' . $venta->id) }}">
+                                Ver Detalles
+                            </a>
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm btn-custom" href="{{ route('venta.edit', $venta->id) }}">
