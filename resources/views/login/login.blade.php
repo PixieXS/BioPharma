@@ -33,7 +33,7 @@
     .left-panel img {
       max-width: 250px;
       height: 250px;
-      box-shadow: 1px 1px 2px #ffffff;
+      filter: drop-shadow(0px 4px 15px rgba(255, 255, 255, 0.6)); 
     }
 
     .left-panel h1 {
