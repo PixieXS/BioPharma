@@ -65,10 +65,11 @@
       padding: 8px 16px;
       border-radius: 4px;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
     }
     .navbar-top .logout:hover {
       background: #c9302c;
+      transform: scale(1.05);
     }
     .main-content {
       margin-left: 260px;
@@ -117,10 +118,29 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       margin-bottom: 40px;
     }
+
+    /* Responsive Sidebar toggle */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: absolute;
+        left: -260px;
+        top: 0;
+        z-index: 1000;
+        transition: left 0.3s;
+      }
+      .sidebar.show {
+        left: 0;
+      }
+      .navbar-top .sidebar-toggle {
+        display: block;
+      }
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- Sidebar -->
   <div class="sidebar">
     <h2>BioPharma</h2>
     <a href="/usuario"><i class="fas fa-users"></i> Usuarios</a>
@@ -131,7 +151,11 @@
     <a href="/devolucion"><i class="fas fa-undo"></i> Devoluciones</a>
   </div>
   
+  <!-- Navbar -->
   <div class="navbar-top">
+    <button class="btn btn-primary d-lg-none sidebar-toggle" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </button>
     <div class="user-info">
       @if($usuario)
         Bienvenido, <strong>{{ $usuario->nombre }}</strong> ({{ ucfirst($usuario->rol) }})
@@ -142,9 +166,11 @@
     </div>
   </div>
   
+  <!-- Main Content -->
   <div class="main-content">
     <h1 class="main-title">Dashboard</h1>
     
+    <!-- Dashboard Cards -->
     <div class="dashboard-cards">
       <div class="dashboard-card">
         <h5>Total Usuarios</h5>
@@ -172,11 +198,13 @@
       </div>
     </div>
     
+    <!-- Chart -->
     <div class="chart-container mt-4">
       <canvas id="dashboardChart" height="100"></canvas>
     </div>
   </div>
   
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -185,45 +213,52 @@
     const salidasMes = {{ $salidasMes ?? 0 }};
     const devolucionesMes = {{ $devolucionesMes ?? 0 }};
     
-    const ctx = document.getElementById('dashboardChart').getContext('2d');
-    const dashboardChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Ventas', 'Entradas', 'Salidas', 'Devoluciones'],
-        datasets: [{
-          label: 'Indicadores del Mes',
-          data: [ventasMes, entradasMes, salidasMes, devolucionesMes],
-          backgroundColor: [
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
-          borderColor: [
-            'rgba(75, 192, 192, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              precision: 0
+    if (ventasMes > 0 || entradasMes > 0 || salidasMes > 0 || devolucionesMes > 0) {
+      const ctx = document.getElementById('dashboardChart').getContext('2d');
+      const dashboardChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Ventas', 'Entradas', 'Salidas', 'Devoluciones'],
+          datasets: [{
+            label: 'Indicadores del Mes',
+            data: [ventasMes, entradasMes, salidasMes, devolucionesMes],
+            backgroundColor: [
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(255, 99, 132, 0.6)'
+            ],
+            borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                precision: 0
+              }
+            }
+          },
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
             }
           }
-        },
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false
-          }
         }
-      }
+      });
+    }
+    
+    // Toggle sidebar on small screens
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('show');
     });
   </script>
 </body>
