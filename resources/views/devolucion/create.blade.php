@@ -20,12 +20,11 @@
                     <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
                         <option value="">Seleccione un detalle de venta</option>
                         @foreach ($detalleVentas as $detalle)
-                            <option 
-                                value="{{ $detalle->id }}" 
-                                data-cantidad="{{ $detalle->cantidad }}" 
-                                data-devuelto="{{ $detalle->devoluciones_sum ?? 0 }}"
-                                {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
-                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+                        <option 
+    value="{{ $detalle->id }}" 
+    data-cantidad="{{ $detalle->cantidad }}" 
+    data-devuelto="{{ $detalle->devoluciones_sum() ?? 0 }}"
+    {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
                             </option>
                         @endforeach
                     </select>
