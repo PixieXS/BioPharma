@@ -15,25 +15,30 @@
                 @method('PUT')
 
                 {{-- Detalle de venta --}}
-                <div class="mb-3">
-                    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
-                    <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required readOnly>
-                        <option value="">Seleccione un detalle de venta</option readOnly>
-                        @foreach ($detalleVentas as $detalle)
-                            <option 
-                                value="{{ $detalle->id }}" 
-                                data-cantidad="{{ $detalle->cantidad }}" 
-                                data-devuelto="{{ $detalle->devoluciones_sum() }}" 
-                                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
-                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('detalle_venta_id')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                    <small id="infoDevolucion" class="form-text text-muted mt-2"></small>
-                </div>
+<div class="mb-3">
+    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
+    
+    <select class="form-select" disabled>
+        @foreach ($detalleVentas as $detalle)
+            <option 
+                value="{{ $detalle->id }}" 
+                data-cantidad="{{ $detalle->cantidad }}" 
+                data-devuelto="{{ $detalle->devoluciones_sum() }}" 
+                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
+                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+            </option>
+        @endforeach
+    </select>
+
+    {{-- Campo oculto para enviar el valor --}}
+    <input type="hidden" name="detalle_venta_id" value="{{ $devolucion->detalle_venta_id }}">
+
+    @error('detalle_venta_id')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+    <small id="infoDevolucion" class="form-text text-muted mt-2"></small>
+</div>
+
 
                 {{-- Usuario --}}
                 <div class="mb-3">
