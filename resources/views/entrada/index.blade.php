@@ -66,29 +66,29 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($entradas as $entrada)
-                <tr>
-                    <td>{{ $entrada->id }}</td>
-                    <td>{{ $entrada->medicamento->nombre }}</td>
-                    <td>{{ $entrada->cantidad }}</td>
-                    <td>${{ number_format($entrada->costo_unitario, 2) }}</td>
-                    <td>{{ $entrada->fecha }}</td>
-                    <td>{{ $entrada->proveedor ?? 'N/A' }}</td>
-                    <td>
-                        <a class="btn btn-primary btn-custom" href="{{ route('entrada.edit', $entrada->id) }}">Editar</a>
-                    </td>
-                    <td>
-                        <form action="{{ route('entrada.confirmDelete', $entrada->id) }}" method="GET" style="display:inline-block;">
-                            <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
+    @forelse ($entradas as $entrada)
         <tr>
-            <td colspan="9" class="text-center">No hay devoluciones registradas.</td>
+            <td>{{ $entrada->id }}</td>
+            <td>{{ $entrada->medicamento->nombre }}</td>
+            <td>{{ $entrada->cantidad }}</td>
+            <td>${{ number_format($entrada->costo_unitario, 2) }}</td>
+            <td>{{ $entrada->fecha }}</td>
+            <td>{{ $entrada->proveedor ?? 'N/A' }}</td>
+            <td>
+                <a class="btn btn-primary btn-custom" href="{{ route('entrada.edit', $entrada->id) }}">Editar</a>
+            </td>
+            <td>
+                <form action="{{ route('entrada.confirmDelete', $entrada->id) }}" method="GET" style="display:inline-block;">
+                    <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
+                </form>
+            </td>
         </tr>
-                @endforeach
-            </tbody>
+    @empty
+        <tr>
+            <td colspan="8" class="text-center">No hay entradas registradas.</td>
+        </tr>
+    @endforelse
+</tbody>
         </table>
     </div>
 

@@ -66,7 +66,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($salidas as $salida)
+                @forelse ($salidas as $salida)
                 <tr>
                     <td>{{ $salida->id }}</td>
                     <td>{{ $salida->medicamento->nombre }}</td>
@@ -83,7 +83,11 @@
                     </form>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+        <tr>
+            <td colspan="8" class="text-center">No hay entradas registradas.</td>
+        </tr>
+    @endforelse
             </tbody>
         </table>
     </div>
