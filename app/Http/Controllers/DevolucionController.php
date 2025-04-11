@@ -24,34 +24,38 @@ class DevolucionController extends Controller
     }
 
     public function store(Request $request)
-    { 
-    
-        $request->validate([
-            'detalle_venta_id' => 'required|exists:detalle_ventas,id',
-            'usuario_id' => 'required|exists:usuarios,id',
-            'cantidad' => 'required|integer|min:1',
-            'fecha' => 'required|date',
-            'motivo' => 'required|string|max:255',
-        ]);
-    
-        $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
-    
-        if ($request->cantidad > $detalle->cantidad) {
-            return back()->withErrors(['cantidad' => 'La cantidad devuelta no puede ser mayor a la comprada.'])->withInput();
-        }
-    
-        $devolucion = Devolucion::create([
-            'detalle_venta_id' => (int)$request->detalle_venta_id, 
-            'usuario_id' => $request->usuario_id,
-            'cantidad' => $request->cantidad,
-            'fecha' => $request->fecha,
-            'motivo' => $request->motivo,
-        ]);
-    
-        $detalle->medicamento->decrement('stock', $devolucion->cantidad);
-    
-        return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
+{
+    $request->validate([
+        'detalle_venta_id' => 'required|exists:detalle_ventas,id',
+        'usuario_id' => 'required|exists:usuarios,id',
+        'cantidad' => 'required|integer|min:1',
+        'fecha' => 'required|date',
+        'motivo' => 'required|string|max:255',
+    ]);
+
+    $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
+
+    $devolucionesPrevias = Devolucion::where('detalle_venta_id', $detalle->id)->sum('cantidad');
+
+    $totalTrasNuevaDevolucion = $devolucionesPrevias + $request->cantidad;
+
+    if ($totalTrasNuevaDevolucion > $detalle->cantidad) {
+        return back()->withErrors(['cantidad' => 'La cantidad total devuelta excede la cantidad comprada.'])->withInput();
     }
+
+    $devolucion = Devolucion::create([
+        'detalle_venta_id' => (int)$request->detalle_venta_id,
+        'usuario_id' => $request->usuario_id,
+        'cantidad' => $request->cantidad,
+        'fecha' => $request->fecha,
+        'motivo' => $request->motivo,
+    ]);
+
+    $detalle->medicamento->decrement('stock', $devolucion->cantidad);
+
+    return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
+}
+
     
 
     public function show(string $id)
@@ -71,7 +75,7 @@ class DevolucionController extends Controller
     public function update(Request $request, string $id)
     {
         $devolucion = Devolucion::findOrFail($id);
-
+    
         $request->validate([
             'detalle_venta_id' => 'required|exists:detalle_ventas,id',
             'usuario_id' => 'required|exists:usuarios,id',
@@ -79,18 +83,38 @@ class DevolucionController extends Controller
             'fecha' => 'required|date',
             'motivo' => 'required|string|max:255',
         ]);
-
-        // Restaurar stock anterior
+    
+        $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
+    
+        // Sumamos todas las devoluciones EXCEPTO esta misma
+        $otrasDevoluciones = Devolucion::where('detalle_venta_id', $detalle->id)
+            ->where('id', '!=', $devolucion->id)
+            ->sum('cantidad');
+    
+        $totalConNuevaCantidad = $otrasDevoluciones + $request->cantidad;
+    
+        if ($totalConNuevaCantidad > $detalle->cantidad) {
+            return back()->withErrors(['cantidad' => 'La cantidad total devuelta excede la cantidad comprada.'])->withInput();
+        }
+    
+        // Restaurar el stock anterior
         $devolucion->detalleVenta->medicamento->increment('stock', $devolucion->cantidad);
-
-        $devolucion->update($request->all());
-
-        // Restar nueva cantidad
-        $nuevoDetalle = DetalleVenta::findOrFail($request->detalle_venta_id);
-        $nuevoDetalle->medicamento->decrement('stock', $devolucion->cantidad);
-
+    
+        // Actualizar devolución
+        $devolucion->update([
+            'detalle_venta_id' => $request->detalle_venta_id,
+            'usuario_id' => $request->usuario_id,
+            'cantidad' => $request->cantidad,
+            'fecha' => $request->fecha,
+            'motivo' => $request->motivo,
+        ]);
+    
+        // Restar la nueva cantidad al stock del medicamento
+        $detalle->medicamento->decrement('stock', $request->cantidad);
+    
         return redirect()->route('devolucion.index')->with('success', 'Devolución actualizada correctamente.');
     }
+    
 
     public function destroy(string $id)
     {
