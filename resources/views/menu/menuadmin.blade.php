@@ -147,86 +147,79 @@
     </div>
   </div>
   
-  <!-- Main Content / Dashboard -->
-  <div class="main-content">
-    <h1 class="main-title">Dashboard</h1>
-    
-    <!-- Dashboard Cards -->
-    <div class="dashboard-cards">
-      <div class="dashboard-card">
-        <h5>Total Usuarios</h5>
-        <p>{{ $totalUsuarios ?? 0 }}</p>
-      </div>
-      <div class="dashboard-card">
-        <h5>Ventas Hoy</h5>
-        <p>${{ number_format($ventasHoy ?? 0, 2) }}</p>
-      </div>
-      <div class="dashboard-card">
-        <h5>Inventario</h5>
-        <p>{{ $inventario ?? 0 }} u</p>
-      </div>
-      <div class="dashboard-card">
-        <h5>Alertas de Stock</h5>
-        <p>{{ $devolucionesHoy ?? 0 }}</p>
-      </div>
-    </div>
-    
-    <!-- Gráfico Interactivo -->
-    <div class="chart-container">
-      <canvas id="dashboardChart" height="100"></canvas>
-    </div>
+  <!-- Dashboard Cards -->
+<div class="dashboard-cards">
+  <div class="dashboard-card">
+    <h5>Total Usuarios</h5>
+    <p>{{ $totalUsuarios ?? 0 }}</p>
   </div>
-  
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Datos obtenidos del backend (pueden ser dinámicos)
-    const ventasHoy = {{ $ventasHoy ?? 0 }};
-    const entradasHoy = {{ $entradasHoy ?? 0 }};
-    const salidasHoy = {{ $salidasHoy ?? 0 }};
-    const devolucionesHoy = {{ $devolucionesHoy ?? 0 }};
-    
-    const ctx = document.getElementById('dashboardChart').getContext('2d');
-    const dashboardChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Ventas', 'Entradas', 'Salidas', 'Devoluciones'],
-        datasets: [{
-          label: 'Indicadores del Día',
-          data: [ventasHoy, entradasHoy, salidasHoy, devolucionesHoy],
-          backgroundColor: [
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
-          borderColor: [
-            'rgba(75, 192, 192, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
-          }
-        },
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false
+  <div class="dashboard-card">
+    <h5>Ventas del Mes</h5>
+    <p>${{ number_format($ventasMes ?? 0, 2) }}</p>
+  </div>
+  <div class="dashboard-card">
+    <h5>Inventario</h5>
+    <p>{{ $inventario ?? 0 }} u</p>
+  </div>
+  <div class="dashboard-card">
+    <h5>Devoluciones del Mes</h5>
+    <p>{{ $devolucionesMes ?? 0 }}</p>
+  </div>
+</div>
+
+<!-- Gráfico Interactivo -->
+<div class="chart-container">
+  <canvas id="dashboardChart" height="100"></canvas>
+</div>
+
+<!-- Scripts -->
+<script>
+  const ventasMes = {{ $ventasMes ?? 0 }};
+  const entradasMes = {{ $entradasMes ?? 0 }};
+  const salidasMes = {{ $salidasMes ?? 0 }};
+  const devolucionesMes = {{ $devolucionesMes ?? 0 }};
+
+  const ctx = document.getElementById('dashboardChart').getContext('2d');
+  const dashboardChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Ventas', 'Entradas', 'Salidas', 'Devoluciones'],
+      datasets: [{
+        label: 'Indicadores del Mes',
+        data: [ventasMes, entradasMes, salidasMes, devolucionesMes],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(255, 99, 132, 0.6)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(255, 99, 132, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
           }
         }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        }
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 </body>
 </html>
