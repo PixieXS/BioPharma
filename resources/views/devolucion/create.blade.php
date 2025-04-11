@@ -69,7 +69,7 @@
         </div>
     </div>
 
-<script>
+    <script>
     window.onload = function() {
         // Fecha de hoy
         const fechaInput = document.querySelector('input[name="fecha"]');
@@ -103,6 +103,20 @@
         actualizarInfo();
 
         // Validar cantidad antes de enviar
+        cantidadInput.addEventListener('input', function() {
+            const option = selectDetalle.options[selectDetalle.selectedIndex];
+            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
+            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
+            const restante = comprado - devuelto;
+            const cantidad = parseInt(cantidadInput.value);
+
+            if (cantidad > restante) {
+                errorText.classList.remove('d-none');
+            } else {
+                errorText.classList.add('d-none');
+            }
+        });
+
         form.addEventListener('submit', function(e) {
             const option = selectDetalle.options[selectDetalle.selectedIndex];
             const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
@@ -113,8 +127,6 @@
             if (cantidad > restante) {
                 e.preventDefault();
                 errorText.classList.remove('d-none');
-            } else {
-                errorText.classList.add('d-none');
             }
         });
     };
