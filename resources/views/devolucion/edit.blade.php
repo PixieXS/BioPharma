@@ -14,22 +14,19 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Detalle de Venta (con nombre del medicamento) --}}
+                {{-- Detalle de venta --}}
                 <div class="mb-3">
-                    <label for="detalle_venta_id" class="form-label">Medicamento</label>
+                    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
                     <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
-                        <option value="">Seleccione un medicamento</option>
+                        <option value="">Seleccione un detalle de venta</option>
                         @foreach ($detalleVentas as $detalle)
-                            <option value="{{ $detalle->id }}" 
-                                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
-                                {{ $detalle->medicamento->nombre }} - (Vendidos: {{ $detalle->cantidad }})
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('detalle_venta_id')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
-                </div>
+                        <option 
+                         value="{{ $detalle->id }}" 
+                         data-cantidad="{{ $detalle->cantidad }}" 
+                         data-devuelto="{{ $detalle->devoluciones_sum() }}" 
+                        {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
+                        Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+                        </option>
 
                 {{-- Usuario (solo lectura) --}}
                 <div class="mb-3">
@@ -38,14 +35,11 @@
                     <input type="hidden" name="usuario_id" value="{{ $devolucion->usuario->id }}">
                 </div>
 
-                {{-- Cantidad --}}
+              {{-- Cantidad --}}
                 <div class="mb-3">
-                    <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" 
-                        value="{{ old('cantidad', $devolucion->cantidad) }}" required>
-                    @error('cantidad')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+                    <label for="cantidad" class="form-label">Cantidad a Devolver</label>
+                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
+                    <small id="errorCantidad" class="text-danger d-none">No puede devolver más de lo permitido.</small>
                 </div>
 
                 {{-- Fecha --}}
@@ -73,5 +67,68 @@
             </form>
         </div>
     </div>
+    <script>
+    window.onload = function() {
+        // Fecha de hoy
+        const fechaInput = document.querySelector('input[name="fecha"]');
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = ('0' + (today.getMonth() + 1)).slice(-2);
+        const day = ('0' + today.getDate()).slice(-2);
+        fechaInput.value = `${year}-${month}-${day}`;
+
+        const selectDetalle = document.getElementById('detalle_venta_id');
+        const cantidadInput = document.getElementById('cantidad');
+        const infoText = document.getElementById('infoDevolucion');
+        const errorText = document.getElementById('errorCantidad');
+        const form = document.getElementById('formDevolucion');
+
+        function actualizarInfo() {
+            const option = selectDetalle.options[selectDetalle.selectedIndex];
+            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
+            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
+            const restante = comprado - devuelto;
+
+            if (option.value) {
+                infoText.textContent = `Ya se devolvieron ${devuelto} unidades de ${comprado}. Puedes devolver hasta ${restante}.`;
+            } else {
+                infoText.textContent = '';
+            }
+        }
+
+        // Mostrar info al cambiar el detalle
+        selectDetalle.addEventListener('change', actualizarInfo);
+        actualizarInfo();
+
+        // Validar cantidad antes de enviar
+        cantidadInput.addEventListener('input', function() {
+            const option = selectDetalle.options[selectDetalle.selectedIndex];
+            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
+            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
+            const restante = comprado - devuelto;
+            const cantidad = parseInt(cantidadInput.value);
+
+            if (cantidad > restante) {
+                errorText.classList.remove('d-none');
+            } else {
+                errorText.classList.add('d-none');
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            const option = selectDetalle.options[selectDetalle.selectedIndex];
+            const comprado = parseInt(option.getAttribute('data-cantidad')) || 0;
+            const devuelto = parseInt(option.getAttribute('data-devuelto')) || 0;
+            const restante = comprado - devuelto;
+            const cantidad = parseInt(cantidadInput.value);
+
+            if (cantidad > restante) {
+                e.preventDefault();
+                errorText.classList.remove('d-none');
+            }
+        });
+    };
+</script>
+
 </body>
 </html>
