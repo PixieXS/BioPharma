@@ -8,25 +8,44 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
         }
         .container {
             max-width: 600px;
             margin-top: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             font-weight: bold;
             color: #333;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .btn-custom {
             border-radius: 25px;
             width: 100%;
+        }
+        .alert {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+        }
+        .mt-3 {
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 class="text-center mb-4">Crear Usuario</h1>
+        <h1>Crear Usuario</h1>
 
         {{-- Mensajes de error --}}
         @if ($errors->any())

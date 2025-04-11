@@ -6,16 +6,49 @@
     <title>Editar Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        h1 { font-weight: bold; color: #333; }
-        .btn-custom { border-radius: 25px; }
-        .container { max-width: 600px; margin: 0 auto; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn-custom {
+            border-radius: 25px;
+            width: 100%;
+        }
+        .alert {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+        }
+        .mt-3 {
+            margin-top: 15px;
+        }
+        small {
+            color: #888;
+        }
     </style>
 </head>
 <body>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Editar Usuario</h1>
+    <h1>Editar Usuario</h1>
 
     {{-- Mensajes de error --}}
     @if ($errors->any())
@@ -47,27 +80,25 @@
 
         <div class="mb-3">
             <label for="rol" class="form-label">Rol</label>
-            <select class="form-select" id="rol" name="rol" required
-                @if ($user->id == auth()->id()) disabled @endif>
+            <select class="form-select" id="rol" name="rol" required @if ($user->id == auth()->id()) disabled @endif>
                 <option value="basico" {{ $user->rol == 'basico' ? 'selected' : '' }}>Básico</option>
                 <option value="root" {{ $user->rol == 'root' ? 'selected' : '' }}>Root</option>
             </select>
             @if ($user->id == auth()->id())
                 <input type="hidden" name="rol" value="{{ $user->rol }}">
-                <small class="text-muted">No puedes cambiar tu propio rol.</small>
+                <small>No puedes cambiar tu propio rol.</small>
             @endif
         </div>
 
         <div class="mb-3">
             <label for="estado" class="form-label">Estado</label>
-            <select class="form-select" id="estado" name="estado" required
-                @if ($user->id == auth()->id()) disabled @endif>
+            <select class="form-select" id="estado" name="estado" required @if ($user->id == auth()->id()) disabled @endif>
                 <option value="activo" {{ $user->estado == 'activo' ? 'selected' : '' }}>Activo</option>
                 <option value="inactivo" {{ $user->estado == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
             </select>
             @if ($user->id == auth()->id())
                 <input type="hidden" name="estado" value="{{ $user->estado }}">
-                <small class="text-muted">No puedes desactivar tu propio usuario.</small>
+                <small>No puedes desactivar tu propio usuario.</small>
             @endif
         </div>
 
