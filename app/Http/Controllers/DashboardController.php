@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $usuario = Auth::user();
     
         // Aquí es donde combinas tus vistas
-        return view('menuadmin', compact(
+        return view('menu.menuadmin', compact(
             'totalUsuarios',
             'ventasMes',
             'inventario',
