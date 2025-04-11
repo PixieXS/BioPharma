@@ -112,11 +112,8 @@
 <body>
   <div class="main-container">
     <div class="left-panel">
-      <div class="logo-placeholder">
-        LOGO
-      </div>
       <h1>BIOPHARMA</h1>
-      <img src="logo.png" alt="Imagen login" />
+      <img src="login/logo.png" alt="Imagen login" />
     </div>
 
     <div class="right-panel">
