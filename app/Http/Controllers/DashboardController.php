@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $mesActual = Carbon::now()->month;
         $anioActual = Carbon::now()->year; 
     
-        $totalUsuarios = User::count();
+        $totalUsuarios = Usuario::count();
         $ventasMes = Venta::whereMonth('created_at', $mesActual)
                           ->whereYear('created_at', $anioActual)
                           ->sum('total');
