@@ -20,7 +20,7 @@
 
     .left-panel {
       flex: 1;
-      background-color: #444;
+      background-color: #555;
       background-image: url('{{ asset("fondo.png") }}');
       display: flex;
       flex-direction: column;
