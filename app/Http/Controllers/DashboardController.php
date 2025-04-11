@@ -37,7 +37,7 @@ class DashboardController extends Controller
     
         $usuario = Auth::user();
     
-        return view('menu.menuadmin', 'menu.menubasico', compact(
+        return view('menu.menuadmin', compact(
             'totalUsuarios',
             'ventasMes',
             'inventario',
