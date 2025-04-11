@@ -29,8 +29,8 @@
     }
 
     .left-panel img {
-      max-width: 100%;
-      height: auto;
+      max-width: 150px;
+      height: 150px;
     }
 
     .left-panel h1 {
