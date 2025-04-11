@@ -139,7 +139,6 @@
   </style>
 </head>
 <body>
-{{ dd($totalUsuarios, $ventasMes, $entradasMes, $salidasMes, $devolucionesMes) }}
   <!-- Sidebar -->
   <div class="sidebar">
     <h2>BioPharma</h2>
@@ -149,6 +148,14 @@
     <a href="/salida"><i class="fas fa-arrow-circle-up"></i> Salidas</a>
     <a href="/venta"><i class="fas fa-shopping-cart"></i> Ventas</a>
     <a href="/devolucion"><i class="fas fa-undo"></i> Devoluciones</a>
+    <pre>
+    {{ var_dump($totalUsuarios) }}
+    {{ var_dump($ventasMes) }}
+    {{ var_dump($inventario) }}
+    {{ var_dump($entradasMes) }}
+    {{ var_dump($salidasMes) }}
+    {{ var_dump($devolucionesMes) }}
+</pre>
   </div>
   
   <!-- Navbar -->

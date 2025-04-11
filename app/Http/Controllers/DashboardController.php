@@ -17,19 +17,17 @@ class DashboardController extends Controller
     public function index()
 {
     $mesActual = Carbon::now()->month;
-    $anioActual = Carbon::now()->year; // Obtenemos el año actual
+    $anioActual = Carbon::now()->year; 
 
     $totalUsuarios = User::count();
 
-    // Aseguramos que solo tomamos las ventas del mes y año actuales
+
     $ventasMes = Venta::whereMonth('created_at', $mesActual)
                       ->whereYear('created_at', $anioActual)
                       ->sum('total');
 
-    // El inventario total no depende del mes, por eso solo se consulta una vez
     $inventario = Medicamento::sum('cantidad');
 
-    // Lo mismo para las entradas, salidas y devoluciones: añadiendo el filtro de año
     $entradasMes = Entrada::whereMonth('created_at', $mesActual)
                           ->whereYear('created_at', $anioActual)
                           ->count();
@@ -44,7 +42,6 @@ class DashboardController extends Controller
 
     $usuario = Auth::user();
 
-    // Retornamos todos los datos a la vista
     return view('dashboard', compact(
         'totalUsuarios',
         'ventasMes',
