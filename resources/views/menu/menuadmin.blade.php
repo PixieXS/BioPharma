@@ -139,6 +139,10 @@
   </style>
 </head>
 <body>
+<pre>
+    {{ var_dump($ventasMes, $usuario) }}
+</pre>
+
   <!-- Sidebar -->
   <div class="sidebar">
     <h2>BioPharma</h2>
