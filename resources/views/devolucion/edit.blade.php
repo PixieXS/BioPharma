@@ -10,7 +10,7 @@
     <div class="container my-5">
         <h1 class="text-center">Editar Devolución</h1>
         <div class="card p-4">
-            <form action="{{ route('devolucion.update', $devolucion->id) }}" method="POST">
+            <form action="{{ route('devolucion.update', $devolucion->id) }}" method="POST" id="formDevolucion">
                 @csrf
                 @method('PUT')
 
@@ -24,14 +24,18 @@
                                 value="{{ $detalle->id }}" 
                                 data-cantidad="{{ $detalle->cantidad }}" 
                                 data-devuelto="{{ $detalle->devoluciones_sum() }}" 
-                                {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
+                                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
                                 Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
                             </option>
                         @endforeach
                     </select>
+                    @error('detalle_venta_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <small id="infoDevolucion" class="form-text text-muted mt-2"></small>
                 </div>
 
-                {{-- Usuario (solo lectura) --}}
+                {{-- Usuario --}}
                 <div class="mb-3">
                     <label for="usuario_id" class="form-label">Usuario</label>
                     <input type="text" id="usuario_id" class="form-control" value="{{ $devolucion->usuario->nombre }}" disabled>
@@ -41,28 +45,28 @@
                 {{-- Cantidad --}}
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad a Devolver</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
+                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" value="{{ old('cantidad', $devolucion->cantidad) }}" required>
+                    @error('cantidad')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <small id="errorCantidad" class="text-danger d-none">No puede devolver más de lo permitido.</small>
                 </div>
 
                 {{-- Fecha --}}
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" 
-                        value="{{ old('fecha', $devolucion->fecha) }}" required readonly>
+                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', $devolucion->fecha) }}" required readonly>
                 </div>
 
                 {{-- Motivo --}}
                 <div class="mb-3">
                     <label for="motivo" class="form-label">Motivo</label>
-                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" 
-                        value="{{ old('motivo', $devolucion->motivo) }}" required>
+                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" value="{{ old('motivo', $devolucion->motivo) }}" required>
                     @error('motivo')
-                        <div class="text-danger small">{{ $message }}</div>
+                        <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                {{-- Botones --}}
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Actualizar</button>
                     <a href="{{ route('devolucion.index') }}" class="btn btn-secondary">Cancelar</a>
@@ -70,9 +74,9 @@
             </form>
         </div>
     </div>
+
     <script>
     window.onload = function() {
-        // Fecha de hoy
         const fechaInput = document.querySelector('input[name="fecha"]');
         const today = new Date();
         const year = today.getFullYear();
@@ -132,5 +136,6 @@
         });
     };
 </script>
+
 </body>
 </html>
