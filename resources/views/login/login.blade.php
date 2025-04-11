@@ -74,7 +74,7 @@
     }
 
     .btn-login {
-      background-color: #ff4b4b;
+      background-color: #4CAF50;
       color: white;
       padding: 12px;
       border: none;
@@ -85,7 +85,7 @@
     }
 
     .btn-login:hover {
-      background-color: #e63e3e;
+      background-color: #3e8e41;
     }
 
     .footer {
@@ -113,7 +113,7 @@
   <div class="main-container">
     <div class="left-panel">
       <h1>BIOPHARMA</h1>
-      <img src="login/logo.png" alt="Imagen login" />
+      <img src="{{ asset('login/login.png') }}" alt="Imagen login" />
     </div>
 
     <div class="right-panel">
