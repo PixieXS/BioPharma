@@ -41,7 +41,7 @@ class DevolucionController extends Controller
         }
     
         $devolucion = Devolucion::create([
-            'detalle_venta_id' => $request->detalle_venta_id,
+            'detalle_venta_id' => (int)$request->detalle_venta_id, 
             'usuario_id' => $request->usuario_id,
             'cantidad' => $request->cantidad,
             'fecha' => $request->fecha,
