@@ -28,6 +28,18 @@
       padding: 40px;
     }
 
+    .left-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 180px;
+      border: 10px solid #4CAF50; 
+      clip-path: polygon(50% 0%, 0% 35%, 50% 100%, 100% 35%);
+      z-index: -1; 
+    }
     .left-panel img {
       max-width: 200px;
       height: 200px;
