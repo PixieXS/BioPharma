@@ -33,14 +33,15 @@
     .left-panel::before {
       content: "";
       position: absolute;
-      top: 0;
+      top: 30px;  /* Ajusta la posición si es necesario */
       left: 50%;
       transform: translateX(-50%);
       width: 200px;
-      height: 180px;
+      height: 200px;
       border: 10px solid #4CAF50; 
+      border-radius: 50%;
       clip-path: polygon(50% 0%, 0% 35%, 50% 100%, 100% 35%);
-      z-index: -1; 
+      z-index: -1;
     }
 
     .left-panel img {
@@ -52,7 +53,7 @@
       font-size: 3rem;
       font-weight: bold;
       margin-top: 30px;
-      color: #4CAF50; 
+      color: #4CAF50;
       text-align: center;
     }
 
