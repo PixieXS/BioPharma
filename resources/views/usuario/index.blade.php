@@ -20,8 +20,6 @@
       color: white;
       font-size: 24px;
       font-weight: bold;
-      text-align: center;
-      align-items:center;
     }
     h1 {
       font-size: 32px;
@@ -69,9 +67,11 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- Navbar con título centrado -->
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">Lista de Usuarios</a>
+    <div class="container-fluid">
+      <a class="navbar-brand mx-auto" href="#">Lista de Usuarios</a>
+    </div>
   </nav>
 
   <div class="container">
