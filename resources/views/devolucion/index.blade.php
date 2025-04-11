@@ -16,6 +16,9 @@
         .btn-custom {
             border-radius: 25px;
         }
+        .table-container {
+            overflow-x: auto;
+        }
         .table {
             border-radius: 10px;
             overflow: hidden;
@@ -43,8 +46,8 @@
 </head>
 <body>
     <div class="container my-5">
-        <div class="page-header">
-            <h1 class="text-center">Lista de Devoluciones</h1>
+        <div class="page-header text-center">
+            <h1>Lista de Devoluciones</h1>
         </div>
 
         <div class="btn-group d-flex justify-content-center mb-4">
@@ -52,40 +55,46 @@
             <a href="{{ auth()->user()->rol == 'root' ? route('menuadmin') : route('menubasico') }}" class="btn btn-secondary btn-custom">Volver al Menú Principal</a>
         </div>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Medicamento</th>
-                    <th>Usuario</th>
-                    <th>Cantidad</th>
-                    <th>Fecha</th>
-                    <th>Motivo</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($devoluciones as $devolucion)
-                <tr>
-                    <td>{{ $devolucion->id }}</td>
-                    <td>{{ $devolucion->medicamento->nombre }}</td>
-                    <td>{{ $devolucion->usuario->nombre }}</td>
-                    <td>{{ $devolucion->cantidad }}</td>
-                    <td>{{ $devolucion->fecha }}</td>
-                    <td>{{ $devolucion->motivo }}</td>
-                    <td>
-                        <a class="btn btn-primary btn-custom" href="{{ route('devolucion.edit', $devolucion->id) }}">Editar</a>
-                    </td>
-                    <td>
-                        <form action="{{ route('devolucion.confirmDelete', $devolucion->id) }}" method="GET" style="display:inline-block;">
-                            <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Medicamento</th>
+                        <th>Usuario</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($devoluciones as $devolucion)
+                        <tr>
+                            <td>{{ $devolucion->id }}</td>
+                            <td>{{ $devolucion->medicamento->nombre }}</td>
+                            <td>{{ $devolucion->usuario->nombre }}</td>
+                            <td>{{ $devolucion->cantidad }}</td>
+                            <td>{{ \Carbon\Carbon::parse($devolucion->fecha)->format('d/m/Y') }}</td>
+                            <td>{{ $devolucion->motivo }}</td>
+                            <td>
+                                <a class="btn btn-primary btn-custom" href="{{ route('devolucion.edit', $devolucion->id) }}">Editar</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('devolucion.confirmDelete', $devolucion->id) }}" method="GET" style="display:inline-block;">
+                                    <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">No hay devoluciones registradas.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

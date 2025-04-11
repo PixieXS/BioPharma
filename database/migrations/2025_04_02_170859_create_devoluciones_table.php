@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('devoluciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('medicamento_id')->constrained('medicamentos')->onDelete('cascade');
+            $table->foreignId('detalle_venta_id')->constrained('detalle_ventas')->onDelete('cascade'); 
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->integer('cantidad');
             $table->date('fecha');

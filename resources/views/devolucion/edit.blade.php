@@ -23,41 +23,49 @@
         .form-label {
             font-weight: bold;
         }
-        .btn-primary, .btn-secondary {
+        .btn {
             width: 100%;
             padding: 10px;
             font-size: 16px;
         }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
         .btn:hover {
             opacity: 0.9;
+        }
+        @media (min-width: 768px) {
+            .btn-group-custom {
+                display: flex;
+                justify-content: space-between;
+                gap: 15px;
+            }
+            .btn {
+                width: 48%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container my-5">
-        <h1 class="text-center">Editar Devolución</h1>
+        <h1 class="text-center mb-4">Editar Devolución</h1>
+
         <form action="{{ route('devolucion.update', $devolucion->id) }}" method="POST">
             @csrf
             @method('PUT')
+
             <div class="mb-3">
                 <label class="form-label" for="medicamento_id">Medicamento</label>
-                <select id="medicamento_id" name="medicamento_id" class="form-control" required>
+                <select id="medicamento_id" name="medicamento_id" class="form-control @error('medicamento_id') is-invalid @enderror" required>
                     <option value="" disabled>Seleccione un medicamento</option>
                     @foreach($medicamentos as $medicamento)
-                        <option value="{{ $medicamento->id }}" {{ $devolucion->medicamento_id == $medicamento->id ? 'selected' : '' }}>
+                        <option value="{{ $medicamento->id }}" {{ old('medicamento_id', $devolucion->medicamento_id) == $medicamento->id ? 'selected' : '' }}>
                             {{ $medicamento->nombre }}
                         </option>
                     @endforeach
                 </select>
+                @error('medicamento_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
             <!-- Usuario (solo lectura o deshabilitado) -->
             <div class="mb-3">
                 <label class="form-label" for="usuario_id">Usuario que realizó la Devolución:</label>
@@ -67,18 +75,32 @@
 
             <div class="mb-3">
                 <label class="form-label" for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidad" class="form-control" value="{{ $devolucion->cantidad }}" required>
+                <input type="number" id="cantidad" name="cantidad" class="form-control @error('cantidad') is-invalid @enderror" value="{{ old('cantidad', $devolucion->cantidad) }}" required>
+                @error('cantidad')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="mb-3">
                 <label class="form-label" for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" class="form-control" value="{{ $devolucion->fecha }}" required>
+                <input type="date" id="fecha" name="fecha" class="form-control @error('fecha') is-invalid @enderror" value="{{ old('fecha', $devolucion->fecha) }}" required>
+                @error('fecha')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="mb-3">
                 <label class="form-label" for="motivo">Motivo</label>
-                <input type="text" id="motivo" name="motivo" class="form-control" value="{{ $devolucion->motivo }}" required>
+                <input type="text" id="motivo" name="motivo" class="form-control @error('motivo') is-invalid @enderror" value="{{ old('motivo', $devolucion->motivo) }}" required>
+                @error('motivo')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Actualizar</button>
-            <a href="{{ route('devolucion.index') }}" class="btn btn-secondary">Cancelar</a>
+
+            <div class="btn-group-custom mt-4">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+                <a href="{{ route('devolucion.index') }}" class="btn btn-secondary">Cancelar</a>
+            </div>
         </form>
     </div>
 </body>
