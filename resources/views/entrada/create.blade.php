@@ -6,16 +6,15 @@
     <title>Registrar Entrada</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
-        // Función para establecer la fecha actual automáticamente en el campo de fecha
         window.onload = function() {
             const fechaInput = document.querySelector('input[name="fecha"]');
             const today = new Date();
             const year = today.getFullYear();
-            const month = ('0' + (today.getMonth() + 1)).slice(-2); // Añade cero si el mes es de un solo dígito
-            const day = ('0' + today.getDate()).slice(-2); // Añade cero si el día es de un solo dígito
+            const month = ('0' + (today.getMonth() + 1)).slice(-2); 
+            const day = ('0' + today.getDate()).slice(-2); 
             const currentDate = `${year}-${month}-${day}`;
-            fechaInput.value = currentDate; // Establecer la fecha
-            fechaInput.disabled = true; // Deshabilitar el campo para no modificarlo
+            fechaInput.value = currentDate; /
+            fechaInput.disabled = true; 
         }
     </script>
 </head>

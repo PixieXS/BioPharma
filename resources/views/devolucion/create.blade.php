@@ -42,7 +42,7 @@
                 {{-- Fecha --}}
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    <input type="date" name="fecha" id="fecha" class="form-control" required disabled>
                 </div>
 
                 {{-- Motivo --}}
@@ -59,5 +59,11 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // Obtener la fecha actual y formatearla para el campo de fecha
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fecha').value = today;
+    </script>
 </body>
 </html>
