@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* Base */
+ 
     body {
       font-family: 'Roboto', sans-serif;
       background: #f4f7f8;
@@ -15,7 +15,6 @@
       height: 100vh;
       overflow: hidden;
     }
-    /* Sidebar */
     .sidebar {
       position: fixed;
       left: 0;
@@ -45,7 +44,6 @@
     .sidebar a:hover {
       background: rgba(255,255,255,0.2);
     }
-    /* Top Navbar */
     .navbar-top {
       margin-left: 260px;
       height: 60px;
@@ -72,7 +70,6 @@
     .navbar-top .logout:hover {
       background: #c9302c;
     }
-    /* Main Content */
     .main-content {
       margin-left: 260px;
       margin-top: 60px;
@@ -84,10 +81,11 @@
     .main-title {
       font-size: 32px;
       text-align: center;
+      margin-top: 10px;
       margin-bottom: 30px;
       color: #333;
     }
-    /* Dashboard Cards */
+ 
     .dashboard-cards {
       display: flex;
       justify-content: space-around;
@@ -113,7 +111,6 @@
       font-weight: bold;
       margin: 0;
     }
-    /* Chart Container */
     .chart-container {
       background: #fff;
       border-radius: 8px;
@@ -124,7 +121,7 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
+
   <div class="sidebar">
     <h2>BioPharma</h2>
     <a href="/usuario"><i class="fas fa-users"></i> Usuarios</a>
@@ -135,7 +132,6 @@
     <a href="/devolucion"><i class="fas fa-undo"></i> Devoluciones</a>
   </div>
   
-  <!-- Top Navbar -->
   <div class="navbar-top">
     <div class="user-info">
       @if($usuario)
@@ -147,37 +143,41 @@
     </div>
   </div>
   
-  <!-- Main Content / Dashboard -->
   <div class="main-content">
     <h1 class="main-title">Dashboard</h1>
     
-    <!-- Dashboard Cards -->
     <div class="dashboard-cards">
       <div class="dashboard-card">
         <h5>Total Usuarios</h5>
         <p>{{ $totalUsuarios ?? 0 }}</p>
       </div>
       <div class="dashboard-card">
-        <h5>Ventas Hoy</h5>
-        <p>${{ number_format($ventasHoy ?? 0, 2) }}</p>
+        <h5>Ventas del Mes</h5>
+        <p>${{ number_format($ventasMes ?? 0, 2) }}</p>
       </div>
       <div class="dashboard-card">
-        <h5>Inventario</h5>
+        <h5>Inventario Total</h5>
         <p>{{ $inventario ?? 0 }} u</p>
       </div>
       <div class="dashboard-card">
-        <h5>Alertas de Stock</h5>
-        <p>{{ $devolucionesHoy ?? 0 }}</p>
+        <h5>Entradas</h5>
+        <p>{{ $entradasMes ?? 0 }}</p>
+      </div>
+      <div class="dashboard-card">
+        <h5>Salidas</h5>
+        <p>{{ $salidasMes ?? 0 }}</p>
+      </div>
+      <div class="dashboard-card">
+        <h5>Devoluciones</h5>
+        <p>{{ $devolucionesMes ?? 0 }}</p>
       </div>
     </div>
     
-    <!-- Gráfico Interactivo -->
-    <div class="chart-container">
+    <div class="chart-container mt-4">
       <canvas id="dashboardChart" height="100"></canvas>
     </div>
   </div>
   
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
