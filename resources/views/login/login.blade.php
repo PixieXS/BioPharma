@@ -34,6 +34,12 @@
     text-align: center;
     padding: 10px;
     flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", serif;
+    background-color: #0b1522;
 }
 
 .heart h1 {
