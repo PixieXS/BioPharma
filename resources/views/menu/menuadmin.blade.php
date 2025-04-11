@@ -139,11 +139,7 @@
   </style>
 </head>
 <body>
-<pre>
-    @php dump($ventasMes, $usuario) @endphp
-</pre>
 
-  <!-- Sidebar -->
   <div class="sidebar">
     <h2>BioPharma</h2>
     <a href="/usuario"><i class="fas fa-users"></i> Usuarios</a>
