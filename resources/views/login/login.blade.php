@@ -31,16 +31,17 @@
     }
 
     .left-panel img {
-      max-width: 150px;
-      height: auto;
+      max-width: 250px;
+      height: 250px;
     }
 
     .left-panel h1 {
-      font-size: 3rem;
+      font-size: 5rem;
       font-weight: bold;
-      margin-top: 30px;
+      margin-top: 20px;
       color: #4CAF50;
       text-align: center;
+      text-shadow: 2px 2px 8px #ffffff;
     }
 
     .right-panel {
