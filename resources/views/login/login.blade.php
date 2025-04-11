@@ -1,143 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8; /* Fondo suave y claro */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | BioPharma</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f3f3;
+    }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
+    .main-container {
+      display: flex;
+      min-height: 100vh;
+    }
 
-        .login-container {
-            max-width: 450px;
-            width: 100%;
-            padding: 40px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            background: linear-gradient(145deg, #3b4a5d, #ffffff); /* Fondo azul oscuro con transición suave */
-        }
+    .left-panel {
+      flex: 1;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
 
-        .login-container h1 {
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #003366; /* Azul oscuro */
-            font-size: 2.5rem;
-        }
+    .left-panel img {
+      max-width: 100%;
+      height: auto;
+    }
 
-        .login-container h2 {
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #003366; /* Azul oscuro */
-            font-size: 1.5rem;
-        }
+    .left-panel h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-top: 30px;
+      color: #333;
+      text-align: center;
+    }
 
-        .form-label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-            color: #003366; /* Azul oscuro para las etiquetas */
-        }
+    .right-panel {
+      flex: 1;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+    }
 
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ced4da;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease-in-out;
-        }
+    .right-panel h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
 
-        .form-control:focus {
-            border-color: #003366; /* Azul oscuro al enfocarse */
-            box-shadow: 0 0 8px rgba(0, 51, 102, 0.5);
-        }
+    .right-panel p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
 
-        .btn-custom {
-            background-color: #003366; /* Azul oscuro */
-            color: white;
-            border-radius: 25px;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .form-label {
+      font-weight: bold;
+      color: #444;
+    }
 
-        .btn-custom:hover {
-            background-color: #002244; /* Azul más oscuro al hacer hover */
-        }
+    .form-control {
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
 
-        .error-message {
-            color: #e53935;
-            font-size: 14px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .btn-login {
+      background-color: #ff4b4b;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #003366;
-            font-size: 12px;
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-        }
-    </style>
+    .btn-login:hover {
+      background-color: #e63e3e;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+
+    .logo-placeholder {
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #aaa;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-container">
-            <h1>BioPharmacy</h1>
-            <p style="margin-top: -10px; color:#333; font-size: 14px;">versión 1.0</p>
-            <h2>Iniciar Sesión</h2>
+  <div class="main-container">
+    <div class="left-panel">
+      <div class="logo-placeholder">
+        LOGO
+      </div>
+      <h1>BIOPHARMA</h1>
+      <img src="logo.png" alt="Imagen login" />
+    </div>
 
-            @if ($errors->any())
-                <div class="error-message">
-                    <p>{{ $errors->first('email') }}</p>
-                </div>
-            @endif
+    <div class="right-panel">
+      <h2>Ingrese A Su Cuenta</h2>
+      <p>Ingrese sus datos para iniciar sesión.</p>
 
-            <form action="/login" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
-                </div>
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        {{ $errors->first('email') }}
+      </div>
+      @endif
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
-                </div>
-
-                <button type="submit" class="btn btn-custom">Ingresar</button>
-            </form>
+      <form action="/login" method="POST">
+        @csrf
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
         </div>
-    </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-login">LOGIN</button>
+      </form>
 
-    <div class="footer">
-        <p>&copy; 2025 BioPharmacy. Todos los derechos reservados.</p>
+      <div class="footer mt-5">
+        &copy; 2025 BioPharma. Todos los derechos reservados. | Design by Grupo 2
+      </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
 </body>
 </html>
