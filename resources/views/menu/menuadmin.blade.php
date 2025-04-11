@@ -53,6 +53,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
+      z-index: 1001;
     }
     .navbar-top .user-info {
       font-size: 16px;
