@@ -43,7 +43,7 @@
       margin-top: 20px;
       color: #3e8e41;
       text-align: center;
-      text-shadow: -2px -2px 3px #ffffff, 2px 2px 4px rgba(0, 0, 0, 0.4);
+      text-shadow: -1px -1px 3px #ffffff, 2px 2px 4px rgba(0, 0, 0, 0.4);
 
     }
 
