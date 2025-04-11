@@ -23,9 +23,10 @@
                         <option 
     value="{{ $detalle->id }}" 
     data-cantidad="{{ $detalle->cantidad }}" 
-    data-devuelto="{{ $detalle->devoluciones_sum() ?? 0 }}"
+    data-devuelto="{{ $detalle->devoluciones_sum ?? 0 }}"
     {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
-                            </option>
+    Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+</option>
                         @endforeach
                     </select>
                     @error('detalle_venta_id')
