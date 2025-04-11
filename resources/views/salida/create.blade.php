@@ -11,6 +11,17 @@
         .btn-custom { border-radius: 25px; }
         .container { max-width: 600px; margin: 0 auto; }
     </style>
+        <script>
+        window.onload = function() {
+            const fechaInput = document.querySelector('input[name="fecha"]');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2); 
+            const day = ('0' + today.getDate()).slice(-2);
+            const currentDate = `${year}-${month}-${day}`;
+            fechaInput.value = currentDate; 
+        };
+    </script>
 </head>
 <body>
     <div class="container my-5">
@@ -38,9 +49,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $salida->fecha }}" required readOnly>
-            </div>
+                    <label class="form-label">Fecha</label>
+                    <input type="date" name="fecha" class="form-control" required readOnly>
+                </div>
 
             <button type="submit" class="btn btn-success btn-custom w-100">Registrar</button>
         </form>
