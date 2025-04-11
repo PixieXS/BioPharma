@@ -22,4 +22,10 @@ class Devolucion extends Model
     {
         return $this->belongsTo(Medicamento::class);
     }  
+
+    public function detalleVenta()
+    {
+        return $this->belongsTo(DetalleVenta::class, 'detalle_venta_id');
+    }
+
  }
