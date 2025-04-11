@@ -13,27 +13,29 @@
             <form action="{{ route('devolucion.store') }}" method="POST">
                 @csrf
 
-                {{-- Medicamento --}}
+                {{-- Detalle de Venta --}}
                 <div class="mb-3">
-                    <label for="medicamento_id" class="form-label">Medicamento</label>
-                    <select name="medicamento_id" id="medicamento_id" class="form-select" required>
-                        <option value="">Seleccione un medicamento</option>
-                        @foreach ($medicamentos as $medicamento)
-                            <option value="{{ $medicamento->id }}">{{ $medicamento->nombre }}</option>
+                    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
+                    <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
+                        <option value="">Seleccione un detalle de venta</option>
+                        @foreach ($detalleVentas as $detalle)
+                            <option value="{{ $detalle->id }}">
+                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+                            </option>
                         @endforeach
                     </select>
                 </div>
 
-                {{-- Usuario actual (mostrado pero no editable) --}}
+                {{-- Usuario actual --}}
                 <div class="mb-3">
-                    <label for="usuario_id" class="form-label">Usuario</label>
-                    <input type="text" id="usuario_id" class="form-control" value="{{ Auth::user()->nombre }}" disabled>
+                    <label class="form-label">Usuario</label>
+                    <input type="text" class="form-control" value="{{ Auth::user()->nombre }}" disabled>
                     <input type="hidden" name="usuario_id" value="{{ Auth::id() }}">
                 </div>
 
                 {{-- Cantidad --}}
                 <div class="mb-3">
-                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <label for="cantidad" class="form-label">Cantidad a Devolver</label>
                     <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
                 </div>
 

@@ -57,42 +57,45 @@
 
         <div class="table-container">
             <table class="table table-bordered table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Medicamento</th>
-                        <th>Usuario</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                        <th>Motivo</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($devoluciones as $devolucion)
-                        <tr>
-                            <td>{{ $devolucion->id }}</td>
-                            <td>{{ $devolucion->medicamento->nombre }}</td>
-                            <td>{{ $devolucion->usuario->nombre }}</td>
-                            <td>{{ $devolucion->cantidad }}</td>
-                            <td>{{ \Carbon\Carbon::parse($devolucion->fecha)->format('d/m/Y') }}</td>
-                            <td>{{ $devolucion->motivo }}</td>
-                            <td>
-                                <a class="btn btn-primary btn-custom" href="{{ route('devolucion.edit', $devolucion->id) }}">Editar</a>
-                            </td>
-                            <td>
-                                <form action="{{ route('devolucion.confirmDelete', $devolucion->id) }}" method="GET" style="display:inline-block;">
-                                    <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">No hay devoluciones registradas.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
+            <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>ID Venta</th>
+        <th>Medicamento</th>
+        <th>Usuario</th>
+        <th>Cantidad</th>
+        <th>Fecha</th>
+        <th>Motivo</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+</thead>
+<tbody>
+    @forelse ($devoluciones as $devolucion)
+        <tr>
+            <td>{{ $devolucion->id }}</td>
+            <td>{{ $devolucion->detalleVenta->venta_id ?? 'N/A' }}</td>
+            <td>{{ $devolucion->detalleVenta->medicamento->nombre ?? 'N/A' }}</td>
+            <td>{{ $devolucion->usuario->nombre }}</td>
+            <td>{{ $devolucion->cantidad }}</td>
+            <td>{{ \Carbon\Carbon::parse($devolucion->fecha)->format('d/m/Y') }}</td>
+            <td>{{ $devolucion->motivo }}</td>
+            <td>
+                <a class="btn btn-primary btn-custom" href="{{ route('devolucion.edit', $devolucion->id) }}">Editar</a>
+            </td>
+            <td>
+                <form action="{{ route('devolucion.confirmDelete', $devolucion->id) }}" method="GET" style="display:inline-block;">
+                    <button type="submit" class="btn btn-danger btn-custom">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="9" class="text-center">No hay devoluciones registradas.</td>
+        </tr>
+    @endforelse
+</tbody>
+
             </table>
         </div>
     </div>
