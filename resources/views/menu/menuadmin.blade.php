@@ -10,66 +10,64 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #edf2f7;
-            display: flex;
-            margin: 0;
-            height: 100vh;
+            padding: 20px;
         }
-        .sidebar {
-            height: 100%;
-            width: 250px;
-            background-color: #2d6a4f;
-            padding-top: 20px;
-            position: fixed;
+        h1 {
+            font-size: 36px;
+            color: #343a40;
+            margin-bottom: 30px;
         }
-        .sidebar .menu-btn {
-            width: 100%;
-            padding: 15px;
+        .user-info {
+            text-align: center;
             font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .menu-btn {
+            width: 320px;
+            height: 80px;
+            font-size: 20px;
             font-weight: bold;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             border-radius: 10px;
             border: none;
             color: white;
             text-decoration: none;
-            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .sidebar .menu-btn:hover {
+        .menu-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-        .sidebar .menu-btn i {
+        .menu-btn i {
             margin-right: 12px;
             font-size: 26px;
         }
-        .sidebar .usuarios { background-color: #2d6a4f; }
-        .sidebar .usuarios:hover { background-color: #1b4332; }
-        .sidebar .medicamentos { background-color: #457b9d; }
-        .sidebar .medicamentos:hover { background-color: #1d3557; }
-        .sidebar .entradas-entradas { background-color: rgb(83, 190, 61); }
-        .sidebar .entradas-entradas:hover { background-color: rgb(73, 165, 54); }
-        .sidebar .salidas-salidas { background-color: #e76f51; }
-        .sidebar .salidas-salidas:hover { background-color: #c74c3c; }
-        .sidebar .ventas { background-color: #9c6644; }
-        .sidebar .ventas:hover { background-color: #654321; }
-        .sidebar .devoluciones { background-color: #264653; }
-        .sidebar .devoluciones:hover { background-color: #1b2c36; }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: 100%;
-        }
-        .navbar {
-            background-color: #2d6a4f;
-            color: white;
-            padding: 10px;
-        }
-        .navbar .navbar-brand {
-            font-size: 24px;
-            font-weight: bold;
-        }
+        .usuarios { background-color: #2d6a4f; }
+        .usuarios:hover { background-color: #1b4332; }
+        .medicamentos { background-color: #457b9d; }
+        .medicamentos:hover { background-color: #1d3557; }
+        .inventario { background-color: #6a4c93; }
+        .inventario:hover { background-color: #3c096c; }
+        .entradas-entradas { background-color:rgb(83, 190, 61); }
+        .entradas-entradas:hover { background-color:rgb(73, 165, 54); }
+        .salidas-salidas { background-color: #e76f51; }
+        .salidas-salidas:hover { background-color: #c74c3c; }
+        .ventas { background-color: #9c6644; }
+        .ventas:hover { background-color: #654321; }
+        .devoluciones { background-color: #264653; }
+        .devoluciones:hover { background-color: #1b2c36; }
         .logout-container {
             position: absolute;
             top: 20px;
@@ -86,24 +84,22 @@
             transition: background-color 0.3s;
         }
         .logout:hover { background-color: #a4161a; }
-        .user-info {
-            font-size: 18px;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 20px;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
+    <div class="logout-container">
+        <a href="/login" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+    @if($usuario)
         <div class="user-info">
-            @if($usuario)
-                <p>Bienvenido, <span style="color: #2d6a4f;">{{ $usuario->nombre }}</span> ({{ ucfirst($usuario->rol) }})</p>
-            @endif
+            <p>Bienvenido, <span style="color: #2d6a4f;">{{ $usuario->nombre }}</span> ({{ ucfirst($usuario->rol) }})</p>
         </div>
+    @endif
+    
+    <h1 class="text-center">Menú Administrativo</h1>
+    
+    <div class="menu-container">
         <a href="/usuario" class="menu-btn usuarios"><i class="fas fa-users"></i>Usuarios</a>
         <a href="/medicamento" class="menu-btn medicamentos"><i class="fas fa-pills"></i>Medicamentos</a>
         <a href="/entrada" class="menu-btn entradas-entradas"><i class="fas fa-exchange-alt"></i>Entradas</a>
@@ -111,17 +107,7 @@
         <a href="/venta" class="menu-btn ventas"><i class="fas fa-shopping-cart"></i>Ventas</a>
         <a href="/devolucion" class="menu-btn devoluciones"><i class="fas fa-undo"></i>Devoluciones</a>
     </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <nav class="navbar">
-            <span class="navbar-brand">Farmacia Admin</span>
-            <a href="/login" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-        </nav>
-
-        <h1 class="text-center">Menú Administrativo</h1>
-    </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
