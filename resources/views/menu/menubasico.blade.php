@@ -73,7 +73,7 @@
     }
     .main-content {
     margin-top: 30px;
-    margin-left: 150px;
+    margin-left: 1500px;
     margin-right: auto;
     padding: 40px;
     max-width: 800px; 
