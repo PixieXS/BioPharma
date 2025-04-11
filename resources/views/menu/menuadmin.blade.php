@@ -140,9 +140,7 @@
 </head>
 <body>
 <pre>
-@php
-    var_dump($ventasMes, $usuario);
-@endphp
+    @php dump($ventasMes, $usuario) @endphp
 </pre>
 
   <!-- Sidebar -->
