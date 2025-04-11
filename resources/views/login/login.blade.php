@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f1f8fc; /* Fondo suave y relajante */
+            background-color: #f0f4f8; /* Fondo suave y claro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,23 +29,23 @@
             width: 100%;
             padding: 40px;
             background-color: white;
-            border-radius: 12px; /* Bordes más redondeados para un estilo más suave */
+            border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            background: linear-gradient(145deg, #e0f7fa, #ffffff); /* Fondo con un toque de color azul claro */
+            background: linear-gradient(145deg, #3b4a5d, #ffffff); /* Fondo azul oscuro con transición suave */
         }
 
         .login-container h1 {
             margin-bottom: 20px;
             font-weight: bold;
-            color: #00796b; /* Color verde suave, relacionado con la salud */
+            color: #003366; /* Azul oscuro */
             font-size: 2.5rem;
         }
 
         .login-container h2 {
             margin-bottom: 10px;
             font-weight: bold;
-            color: #333;
+            color: #003366; /* Azul oscuro */
             font-size: 1.5rem;
         }
 
@@ -53,25 +53,25 @@
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
-            color: #00796b; /* Coincide con el tema de la farmacia */
+            color: #003366; /* Azul oscuro para las etiquetas */
         }
 
         .form-control {
             border-radius: 10px;
             padding: 12px;
             margin-bottom: 20px;
-            border: 1px solid #80cbc4; /* Borde suave en tonos verde agua */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ligera sombra para destacar el campo */
+            border: 1px solid #ced4da;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease-in-out;
         }
 
         .form-control:focus {
-            border-color: #00796b; /* Cambio de color al enfocarse, para mayor énfasis */
-            box-shadow: 0 0 8px rgba(0, 150, 136, 0.5);
+            border-color: #003366; /* Azul oscuro al enfocarse */
+            box-shadow: 0 0 8px rgba(0, 51, 102, 0.5);
         }
 
         .btn-custom {
-            background-color: #00796b; /* Verde suave, profesional y asociado a la salud */
+            background-color: #003366; /* Azul oscuro */
             color: white;
             border-radius: 25px;
             width: 100%;
@@ -83,11 +83,11 @@
         }
 
         .btn-custom:hover {
-            background-color: #004d40; /* Verde oscuro al hacer hover */
+            background-color: #002244; /* Azul más oscuro al hacer hover */
         }
 
         .error-message {
-            color: #e53935; /* Rojo para los mensajes de error */
+            color: #e53935;
             font-size: 14px;
             text-align: center;
             margin-bottom: 20px;
@@ -96,8 +96,11 @@
         .footer {
             text-align: center;
             margin-top: 20px;
-            color: #00796b;
+            color: #003366;
             font-size: 12px;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
         }
     </style>
 </head>
