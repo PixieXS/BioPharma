@@ -40,6 +40,7 @@ class DevolucionController extends Controller
             return back()->withErrors(['cantidad' => 'La cantidad devuelta no puede ser mayor a la comprada.'])->withInput();
         }
     
+        dd($request->all());
         $devolucion = Devolucion::create([
             'detalle_venta_id' => (int)$request->detalle_venta_id, 
             'usuario_id' => $request->usuario_id,
