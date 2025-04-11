@@ -27,15 +27,14 @@
         }
     </style>
     <script>
-        // Establecer la fecha actual en el campo de fecha cuando la página se carga
         window.onload = function() {
             const fechaInput = document.querySelector('input[name="fecha"]');
             const today = new Date();
             const year = today.getFullYear();
-            const month = ('0' + (today.getMonth() + 1)).slice(-2); // Asegura que el mes tenga dos dígitos
-            const day = ('0' + today.getDate()).slice(-2); // Asegura que el día tenga dos dígitos
+            const month = ('0' + (today.getMonth() + 1)).slice(-2); 
+            const day = ('0' + today.getDate()).slice(-2);
             const currentDate = `${year}-${month}-${day}`;
-            fechaInput.value = currentDate; // Establece la fecha actual
+            fechaInput.value = currentDate; 
         };
     </script>
 </head>
@@ -58,7 +57,7 @@
         <!-- Fecha -->
         <div class="mb-3">
             <label for="fecha" class="form-label">Fecha:</label>
-            <input type="date" name="fecha" id="fecha" class="form-control" required disabled>
+            <input type="date" name="fecha" id="fecha" class="form-control" required readOnly>
         </div>
 
         <h5>Medicamentos</h5>

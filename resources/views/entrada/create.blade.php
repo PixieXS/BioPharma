@@ -11,11 +11,10 @@
             const today = new Date();
             const year = today.getFullYear();
             const month = ('0' + (today.getMonth() + 1)).slice(-2); 
-            const day = ('0' + today.getDate()).slice(-2); 
+            const day = ('0' + today.getDate()).slice(-2);
             const currentDate = `${year}-${month}-${day}`;
-            fechaInput.value = currentDate; /
-            fechaInput.disabled = true; 
-        }
+            fechaInput.value = currentDate; 
+        };
     </script>
 </head>
 <body>
@@ -43,7 +42,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Fecha</label>
-                    <input type="date" name="fecha" class="form-control" required>
+                    <input type="date" name="fecha" class="form-control" required readOnly>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Proveedor</label>

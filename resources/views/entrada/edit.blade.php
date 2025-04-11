@@ -46,7 +46,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Fecha</label>
-                    <input type="date" name="fecha" class="form-control" required>
+                    <input type="date" name="fecha" class="form-control" required readOnly>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Proveedor</label>

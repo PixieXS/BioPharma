@@ -43,7 +43,7 @@
                 {{-- Fecha --}}
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', $devolucion->fecha) }}" required>
+                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', $devolucion->fecha) }}" required readOnly>
                 </div>
 
                 {{-- Motivo --}}

@@ -20,7 +20,7 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="medicamento_id" class="form-label">Medicamento</label>
-                <select class="form-select" id="medicamento_id" name="medicamento_id" required disabled>
+                <select class="form-select" id="medicamento_id" name="medicamento_id" required readOnly>
                     @foreach ($medicamentos as $medicamento)
                         <option value="{{ $medicamento->id }}" {{ $medicamento->id == $salida->medicamento_id ? 'selected' : '' }}>
                             {{ $medicamento->nombre }}
@@ -45,7 +45,7 @@
             </div>
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $salida->fecha }}" required>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $salida->fecha }}" required readOnly>
             </div>
             <button type="submit" class="btn btn-primary btn-custom w-100">Actualizar</button>
         </form>

@@ -39,7 +39,7 @@
 
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                <input type="date" class="form-control" id="fecha" name="fecha" required readOnly>
             </div>
 
             <button type="submit" class="btn btn-success btn-custom w-100">Registrar</button>
