@@ -41,7 +41,7 @@
       border: 10px solid #4CAF50; 
       border-radius: 50%;
       clip-path: polygon(50% 0%, 0% 35%, 50% 100%, 100% 35%);
-      z-index: -1;
+      z-index: 1;
     }
 
     .left-panel img {
