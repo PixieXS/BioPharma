@@ -16,6 +16,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        dd(Venta::count(), Entrada::count(), Salida::count(), Devolucion::count());
+        
         $mesActual = Carbon::now()->month;
 
         $totalUsuarios = User::count();
