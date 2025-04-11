@@ -29,12 +29,12 @@
     }
 
     .left-panel img {
-      max-width: 150px;
-      height: 150px;
+      max-width: 200px;
+      height: 2000px;
     }
 
     .left-panel h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: bold;
       margin-top: 30px;
       color: #333;
