@@ -162,25 +162,4 @@ class VentaController extends Controller
         return redirect()->route('venta.index')->with('success', 'Venta actualizada correctamente.');
     }
 
-    public function confirmDelete(Venta $venta)
-    {
-        if (Auth::user()->rol !== 'root') {
-            return redirect()->route('venta.index')->withErrors('No tienes permisos para eliminar ventas.');
-        }
-
-        return view('venta.delete', compact('venta'));
-    }
-
-    public function destroy(Venta $venta)
-    {
-        if (Auth::user()->rol !== 'root') {
-            return redirect()->route('venta.index')->withErrors('No tienes permisos para eliminar ventas.');
-        }
-
-        // Aquí puedes agregar lógica para eliminar los detalles también si deseas
-
-        $venta->delete();
-
-        return redirect()->route('venta.index')->with('success', 'Venta eliminada correctamente.');
-    }
 }
