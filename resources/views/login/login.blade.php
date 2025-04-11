@@ -31,8 +31,8 @@
     }
 
     .left-panel img {
-      max-width: 250px;
-      height: 250px;
+      max-width: 300px;
+      height: 300px;
       filter: drop-shadow(0px 4px 15px rgba(255, 255, 255, 0.6)); 
       animation: logoPulse 3s infinite ease-in-out;
     }
