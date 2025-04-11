@@ -14,17 +14,21 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Medicamento --}}
+                {{-- Detalle de Venta (con nombre del medicamento) --}}
                 <div class="mb-3">
-                    <label for="medicamento_id" class="form-label">Medicamento</label>
-                    <select name="medicamento_id" id="medicamento_id" class="form-select" required>
+                    <label for="detalle_venta_id" class="form-label">Medicamento</label>
+                    <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
                         <option value="">Seleccione un medicamento</option>
-                        @foreach ($medicamentos as $medicamento)
-                            <option value="{{ $medicamento->id }}" {{ old('medicamento_id', $devolucion->medicamento_id) == $medicamento->id ? 'selected' : '' }}>
-                                {{ $medicamento->nombre }}
+                        @foreach ($detalleVentas as $detalle)
+                            <option value="{{ $detalle->id }}" 
+                                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
+                                {{ $detalle->medicamento->nombre }} - (Vendidos: {{ $detalle->cantidad }})
                             </option>
                         @endforeach
                     </select>
+                    @error('detalle_venta_id')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 {{-- Usuario (solo lectura) --}}
@@ -37,19 +41,28 @@
                 {{-- Cantidad --}}
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" value="{{ old('cantidad', $devolucion->cantidad) }}" required>
+                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" 
+                        value="{{ old('cantidad', $devolucion->cantidad) }}" required>
+                    @error('cantidad')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 {{-- Fecha --}}
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', $devolucion->fecha) }}" required readOnly>
+                    <input type="date" name="fecha" id="fecha" class="form-control" 
+                        value="{{ old('fecha', $devolucion->fecha) }}" required readonly>
                 </div>
 
                 {{-- Motivo --}}
                 <div class="mb-3">
                     <label for="motivo" class="form-label">Motivo</label>
-                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" value="{{ old('motivo', $devolucion->motivo) }}" required>
+                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" 
+                        value="{{ old('motivo', $devolucion->motivo) }}" required>
+                    @error('motivo')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 {{-- Botones --}}
