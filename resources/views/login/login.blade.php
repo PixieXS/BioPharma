@@ -33,6 +33,7 @@
     .left-panel img {
       max-width: 250px;
       height: 250px;
+      box-shadow: 1px 1px 2px #ffffff;
     }
 
     .left-panel h1 {
