@@ -23,10 +23,11 @@ class DetalleVenta extends Model
     
     public function devoluciones()
     {
-        return $this->hasMany(Devolucion::class);
+        return $this->hasMany(Devolucion::class, 'detalle_venta_id');
     }
-
-    public function devoluciones_sum() {
+    
+    public function devoluciones_sum()
+    {
         return $this->devoluciones()->sum('cantidad');
     }
 
