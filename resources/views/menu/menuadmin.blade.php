@@ -139,7 +139,7 @@
   </style>
 </head>
 <body>
-
+{{ dd($totalUsuarios, $ventasMes, $entradasMes, $salidasMes, $devolucionesMes) }}
   <!-- Sidebar -->
   <div class="sidebar">
     <h2>BioPharma</h2>
