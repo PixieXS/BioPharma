@@ -85,7 +85,6 @@
                     <th>Fecha</th>
                     <th>Detalle</th>
                     <th>Editar</th>
-                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,11 +112,6 @@
                             <a class="btn btn-primary btn-sm btn-custom" href="{{ route('venta.edit', $venta->id) }}">
                                 Editar
                             </a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-sm btn-custom" data-bs-toggle="modal" data-bs-target="#confirmModal" data-id="{{ $venta->id }}">
-                                Eliminar
-                            </button>
                         </td>
                     </tr>
                 @empty
