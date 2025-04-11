@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Devolución</title>
+    <title>Editar Devolución</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container my-5">
-        <h1 class="text-center">Registrar Devolución</h1>
+        <h1 class="text-center">Editar Devolución</h1>
         <div class="card p-4">
-            <form action="{{ route('devolucion.store') }}" method="POST" id="formDevolucion">
+            <form action="{{ route('devolucion.update', $devolucion->id) }}" method="POST" id="formDevolucion">
                 @csrf
+                @method('PUT')
 
                 {{-- Detalle de venta --}}
                 <div class="mb-3">
@@ -20,14 +20,13 @@
                     <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
                         <option value="">Seleccione un detalle de venta</option>
                         @foreach ($detalleVentas as $detalle)
-                        <option 
-                         value="{{ $detalle->id }}" 
-                         data-cantidad="{{ $detalle->cantidad }}" 
-                         data-devuelto="{{ $detalle->devoluciones_sum() }}" 
-                        {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
-                        Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-                        </option>
-
+                            <option 
+                                value="{{ $detalle->id }}" 
+                                data-cantidad="{{ $detalle->cantidad }}" 
+                                data-devuelto="{{ $detalle->devoluciones_sum() }}" 
+                                {{ old('detalle_venta_id', $devolucion->detalle_venta_id) == $detalle->id ? 'selected' : '' }}>
+                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+                            </option>
                         @endforeach
                     </select>
                     @error('detalle_venta_id')
@@ -39,31 +38,37 @@
                 {{-- Usuario --}}
                 <div class="mb-3">
                     <label for="usuario_id" class="form-label">Usuario</label>
-                    <input type="text" id="usuario_id" class="form-control" value="{{ Auth::user()->nombre }}" disabled>
-                    <input type="hidden" name="usuario_id" value="{{ Auth::id() }}">
+                    <input type="text" id="usuario_id" class="form-control" value="{{ $devolucion->usuario->nombre }}" disabled>
+                    <input type="hidden" name="usuario_id" value="{{ $devolucion->usuario->id }}">
                 </div>
 
                 {{-- Cantidad --}}
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad a Devolver</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
+                    <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" value="{{ old('cantidad', $devolucion->cantidad) }}" required>
+                    @error('cantidad')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <small id="errorCantidad" class="text-danger d-none">No puede devolver más de lo permitido.</small>
                 </div>
 
                 {{-- Fecha --}}
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" required readonly>
+                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', $devolucion->fecha) }}" required readonly>
                 </div>
 
                 {{-- Motivo --}}
                 <div class="mb-3">
                     <label for="motivo" class="form-label">Motivo</label>
-                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" required>
+                    <input type="text" name="motivo" id="motivo" class="form-control" maxlength="255" value="{{ old('motivo', $devolucion->motivo) }}" required>
+                    @error('motivo')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                     <a href="{{ route('devolucion.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
@@ -72,7 +77,6 @@
 
     <script>
     window.onload = function() {
-        // Fecha de hoy
         const fechaInput = document.querySelector('input[name="fecha"]');
         const today = new Date();
         const year = today.getFullYear();
