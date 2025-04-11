@@ -140,7 +140,9 @@
 </head>
 <body>
 <pre>
-    {{ var_dump($ventasMes, $usuario) }}
+@php
+    var_dump($ventasMes, $usuario);
+@endphp
 </pre>
 
   <!-- Sidebar -->
