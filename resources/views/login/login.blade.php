@@ -1,164 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | BioPharma</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f3f3f3;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Login | BioPharma</title>
+    <style>
+        body {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", serif;
+    background-color: #0b1522;
+}
 
-    .main-container {
-      display: flex;
-      min-height: 100vh;
-    }
+.heart {
+    height: 250px;
+    width: 250px;
+    background-color: #f20044;
+    position: relative;
+    transform: rotate(-45deg);
+    box-shadow: -10px 10px 90px #f20044;
+    animation: heart 0.6s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    flex-direction: column;
+}
 
-    .left-panel {
-      flex: 1;
-      background-color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
-      position: relative;
-    }
+.heart h1 {
+    font-size: 24px;
+    margin: 0;
+    z-index: 9999;
+}
 
-    /* Corazón verde (solo contorno) */
-    .left-panel::before {
-      content: "";
-      position: absolute;
-      top: 30px;  /* Ajusta la posición si es necesario */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 200px;
-      border: 10px solid #4CAF50; 
-      border-radius: 50%;
-      clip-path: polygon(50% 0%, 0% 35%, 50% 100%, 100% 35%);
-      z-index: 1;
-    }
+.heart img {
+    max-width: 100px;
+    height: auto;
+    z-index: 9999;
+}
 
-    .left-panel img {
-      max-width: 150px;
-      height: auto;
-    }
+.heart p {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    transform: rotate(45deg) translate(0,-50px);
+}
 
-    .left-panel h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-top: 30px;
-      color: #4CAF50;
-      text-align: center;
+@keyframes  heart {
+    0% {
+        transform: rotate(-45deg) scale(1.07);
     }
+    80% {
+        transform: rotate(-45deg) scale(1.0);
+    }
+    100% {
+        transform: rotate(-45deg) scale(0.8);
+    }
+}
 
-    .right-panel {
-      flex: 1;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 60px 40px;
-    }
+.heart::before {
+    content: "";
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    background-color: #f20044;
+    top: -50%;
+    border-radius: 100px;
+    box-shadow: -10px -10px 90px #f20044;
+}
 
-    .right-panel h2 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #333;
-    }
+.heart::after {
+    content: "";
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    background-color: #f20044;
+    right: -50%;
+    border-radius: 100px;
+    box-shadow: 10px 10px 90px #f20044;
+}
 
-    .right-panel p {
-      color: #777;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-
-    .form-label {
-      font-weight: bold;
-      color: #444;
-    }
-
-    .form-control {
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 20px;
-    }
-
-    .btn-login {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      width: 100%;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn-login:hover {
-      background-color: #3e8e41;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #aaa;
-      margin-top: 40px;
-    }
-
-    .logo-placeholder {
-      width: 100px;
-      height: 100px;
-      background-color: #eee;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #aaa;
-      font-size: 14px;
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <div class="main-container">
-    <div class="left-panel">
-      <h1>BIOPHARMA</h1>
-      <img src="{{ asset('logo.png') }}" alt="Imagen login" />
-    </div>
-
-    <div class="right-panel">
-      <h2>Ingrese A Su Cuenta</h2>
-      <p>Ingrese sus datos para iniciar sesión.</p>
-
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        {{ $errors->first('email') }}
-      </div>
-      @endif
-
-      <form action="/login" method="POST">
-        @csrf
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="heart">
+                <h1>BIOPHARMA</h1>
+                <img src="{{ asset('logo.png') }}" alt="Logo de BioPharma" />
+            </div>
         </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
-        </div>
-        <button type="submit" class="btn-login">LOGIN</button>
-      </form>
 
-      <div class="footer mt-5">
-        &copy; 2025 BioPharma. Todos los derechos reservados. | Design by Grupo 2
-      </div>
+        <div class="right-panel">
+            <h2>Ingrese A Su Cuenta</h2>
+            <p>Ingrese sus datos para iniciar sesión.</p>
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first('email') }}
+            </div>
+            @endif
+
+            <form action="/login" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required autocomplete="email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-login">LOGIN</button>
+            </form>
+
+            <div class="footer mt-5">
+                &copy; 2025 BioPharma. Todos los derechos reservados. | Design by Grupo 2
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>
