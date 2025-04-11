@@ -25,16 +25,20 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
-                    <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
-    <option value="">Seleccione un detalle de venta</option>
-    @foreach ($detalleVentas as $detalle)
-        <option value="{{ $detalle->id }}" {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
-            Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-        </option>
-    @endforeach
-</select>
-                </div>
+    <label for="detalle_venta_id" class="form-label">Detalle de Venta (Venta ID - Medicamento)</label>
+    <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
+        <option value="">Seleccione un detalle de venta</option>
+        @foreach ($detalleVentas as $detalle)
+            <option value="{{ $detalle->id }}" {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
+                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+            </option>
+        @endforeach
+    </select>
+    @error('detalle_venta_id')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
+</div>
+
 
                 <div class="mb-3">
                     <label for="usuario_id" class="form-label">Usuario</label>
