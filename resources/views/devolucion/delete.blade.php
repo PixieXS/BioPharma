@@ -36,7 +36,7 @@
 
             <div class="mb-3">
                 <p><span class="info-label">ID:</span> {{ $devolucion->id }}</p>
-                <p><span class="info-label">Medicamento:</span> {{ $devolucion->detalleVenta->medicamento->nombre ?? 'No disponible' }}</p>
+                <p><strong>Medicamento:</strong> {{ $devolucion->detalleVenta->medicamento->nombre ?? 'No disponible' }}</p>
                 <p><span class="info-label">Usuario:</span> {{ $devolucion->usuario->nombre ?? 'No disponible' }}</p>
                 <p><span class="info-label">Cantidad:</span> {{ $devolucion->cantidad }}</p>
                 <p><span class="info-label">Fecha:</span> {{ \Carbon\Carbon::parse($devolucion->fecha)->format('d/m/Y') }}</p>
