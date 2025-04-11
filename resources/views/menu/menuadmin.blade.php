@@ -181,10 +181,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const ventasHoy = {{ $ventasHoy ?? 0 }};
-    const entradasHoy = {{ $entradasHoy ?? 0 }};
-    const salidasHoy = {{ $salidasHoy ?? 0 }};
-    const devolucionesHoy = {{ $devolucionesHoy ?? 0 }};
+    const ventasMes= {{ $ventasMes ?? 0 }};
+    const entradasMes = {{ $entradasMes ?? 0 }};
+    const salidasMes = {{ $salidasMes ?? 0 }};
+    const devolucionesMes = {{ $devolucionesMes ?? 0 }};
     
     const ctx = document.getElementById('dashboardChart').getContext('2d');
     const dashboardChart = new Chart(ctx, {
@@ -192,8 +192,8 @@
       data: {
         labels: ['Ventas', 'Entradas', 'Salidas', 'Devoluciones'],
         datasets: [{
-          label: 'Indicadores del Día',
-          data: [ventasHoy, entradasHoy, salidasHoy, devolucionesHoy],
+          label: 'Indicadores del Mes',
+          data: [ventasMes, entradasMes, salidasMes, devolucionesMes],
           backgroundColor: [
             'rgba(75, 192, 192, 0.6)',
             'rgba(54, 162, 235, 0.6)',
