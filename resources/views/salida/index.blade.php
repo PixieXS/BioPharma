@@ -85,7 +85,7 @@
                 </tr>
                 @empty
         <tr>
-            <td colspan="8" class="text-center">No hay entradas registradas.</td>
+            <td colspan="8" class="text-center">No hay salidas registradas.</td>
         </tr>
     @endforelse
             </tbody>
