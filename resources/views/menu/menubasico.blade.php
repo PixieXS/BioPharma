@@ -73,8 +73,8 @@
     }
     .main-content {
     margin-top: 30px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 150px;
+    margin-right: auto;
     padding: 40px;
     max-width: 800px; 
     height: calc(100vh - 100px); 
