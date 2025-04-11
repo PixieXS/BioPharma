@@ -21,6 +21,7 @@
     .left-panel {
       flex: 1;
       background-color: #fff;
+      background-image: url('{{ asset("fondo.png") }}');
       display: flex;
       flex-direction: column;
       justify-content: center;
