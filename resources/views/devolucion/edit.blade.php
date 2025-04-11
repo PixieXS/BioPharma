@@ -20,13 +20,16 @@
                     <select name="detalle_venta_id" id="detalle_venta_id" class="form-select" required>
                         <option value="">Seleccione un detalle de venta</option>
                         @foreach ($detalleVentas as $detalle)
-                        <option 
-                         value="{{ $detalle->id }}" 
-                         data-cantidad="{{ $detalle->cantidad }}" 
-                         data-devuelto="{{ $detalle->devoluciones_sum() }}" 
-                        {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
-                        Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
-                        </option>
+                            <option 
+                                value="{{ $detalle->id }}" 
+                                data-cantidad="{{ $detalle->cantidad }}" 
+                                data-devuelto="{{ $detalle->devoluciones_sum() }}" 
+                                {{ old('detalle_venta_id') == $detalle->id ? 'selected' : '' }}>
+                                Venta #{{ $detalle->venta_id }} - {{ $detalle->medicamento->nombre }} (Comprado: {{ $detalle->cantidad }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 {{-- Usuario (solo lectura) --}}
                 <div class="mb-3">
@@ -35,7 +38,7 @@
                     <input type="hidden" name="usuario_id" value="{{ $devolucion->usuario->id }}">
                 </div>
 
-              {{-- Cantidad --}}
+                {{-- Cantidad --}}
                 <div class="mb-3">
                     <label for="cantidad" class="form-label">Cantidad a Devolver</label>
                     <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
