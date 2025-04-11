@@ -8,44 +8,97 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f8fa;
         }
+
         h1 {
             font-weight: bold;
             color: #333;
+            font-size: 2rem;
+            margin-bottom: 30px;
         }
+
         .btn-custom {
             border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s, transform 0.3s;
         }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            background-color: #0056b3;
+        }
+
         .table {
             border-radius: 10px;
             overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .table th, .table td {
             text-align: center;
             vertical-align: middle;
+            padding: 12px 20px;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         .btn-group {
             margin-bottom: 20px;
         }
+
         .btn-group a {
             margin-right: 10px;
         }
+
         .page-header {
             border-bottom: 2px solid #dee2e6;
             padding-bottom: 15px;
             margin-bottom: 30px;
+        }
+
+        .alert {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .table-dark {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .table-dark th {
+            font-weight: bold;
+        }
+
+        .btn-danger:disabled {
+            background-color: #f5c6cb;
+            border-color: #f5c6cb;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary:disabled {
+            background-color: #d6d8db;
+            border-color: #d6d8db;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
     <div class="container my-5">
-        <div class="page-header">
-            <h1 class="text-center">Lista De Usuarios</h1>
+        <div class="page-header text-center">
+            <h1>Lista De Usuarios</h1>
         </div>
 
         {{-- Mensajes de éxito y error --}}
