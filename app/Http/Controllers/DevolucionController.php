@@ -25,6 +25,8 @@ class DevolucionController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());  
+    
         $request->validate([
             'detalle_venta_id' => 'required|exists:detalle_ventas,id',
             'usuario_id' => 'required|exists:usuarios,id',
@@ -32,22 +34,26 @@ class DevolucionController extends Controller
             'fecha' => 'required|date',
             'motivo' => 'required|string|max:255',
         ]);
-
+    
         $detalle = DetalleVenta::findOrFail($request->detalle_venta_id);
-
-        // Validar que no se devuelva más de lo comprado
+    
         if ($request->cantidad > $detalle->cantidad) {
             return back()->withErrors(['cantidad' => 'La cantidad devuelta no puede ser mayor a la comprada.'])->withInput();
         }
-
-        // Crear devolución
-        $devolucion = Devolucion::create($request->all());
-
-        // Actualizar stock del medicamento
+    
+        $devolucion = Devolucion::create([
+            'detalle_venta_id' => $request->detalle_venta_id,
+            'usuario_id' => $request->usuario_id,
+            'cantidad' => $request->cantidad,
+            'fecha' => $request->fecha,
+            'motivo' => $request->motivo,
+        ]);
+    
         $detalle->medicamento->decrement('stock', $devolucion->cantidad);
-
+    
         return redirect()->route('devolucion.index')->with('success', 'Devolución registrada correctamente.');
     }
+    
 
     public function show(string $id)
     {
