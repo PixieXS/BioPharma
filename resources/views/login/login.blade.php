@@ -30,7 +30,7 @@
 
     .left-panel img {
       max-width: 200px;
-      height: 2000px;
+      height: 200px;
     }
 
     .left-panel h1 {
