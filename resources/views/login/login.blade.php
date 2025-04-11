@@ -40,7 +40,7 @@
       font-size: 5rem;
       font-weight: bold;
       margin-top: 20px;
-      color: #4CAF50;
+      color: #3e8e41;
       text-align: center;
       text-shadow: 1px 1px 2px #ffffff;
     }
