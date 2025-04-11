@@ -83,6 +83,10 @@
                         </form>
                     </td>
                 </tr>
+                @empty
+        <tr>
+            <td colspan="9" class="text-center">No hay devoluciones registradas.</td>
+        </tr>
                 @endforeach
             </tbody>
         </table>
