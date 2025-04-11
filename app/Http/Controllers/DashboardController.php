@@ -15,44 +15,39 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index()
-{
-    $mesActual = Carbon::now()->month;
-    $anioActual = Carbon::now()->year; 
-
-    $totalUsuarios = User::count();
-
-
-    $ventasMes = Venta::whereMonth('created_at', $mesActual)
-                      ->whereYear('created_at', $anioActual)
-                      ->sum('total');
-
-    $inventario = Medicamento::sum('cantidad');
-
-    $entradasMes = Entrada::whereMonth('created_at', $mesActual)
+    {
+        $mesActual = Carbon::now()->month;
+        $anioActual = Carbon::now()->year; 
+    
+        $totalUsuarios = User::count();
+        $ventasMes = Venta::whereMonth('created_at', $mesActual)
                           ->whereYear('created_at', $anioActual)
-                          ->count();
-
-    $salidasMes = Salida::whereMonth('created_at', $mesActual)
-                        ->whereYear('created_at', $anioActual)
-                        ->count();
-
-    $devolucionesMes = Devolucion::whereMonth('created_at', $mesActual)
-                                 ->whereYear('created_at', $anioActual)
-                                 ->count();
-
-    $usuario = Auth::user();
-
-    return view('menuadmin','menubasico', compact(
-        'totalUsuarios',
-        'ventasMes',
-        'inventario',
-        'entradasMes',
-        'salidasMes',
-        'devolucionesMes',
-        'usuario'
-    ));
-}
-
+                          ->sum('total');
+        $inventario = Medicamento::sum('cantidad');
+        $entradasMes = Entrada::whereMonth('created_at', $mesActual)
+                              ->whereYear('created_at', $anioActual)
+                              ->count();
+        $salidasMes = Salida::whereMonth('created_at', $mesActual)
+                            ->whereYear('created_at', $anioActual)
+                            ->count();
+        $devolucionesMes = Devolucion::whereMonth('created_at', $mesActual)
+                                     ->whereYear('created_at', $anioActual)
+                                     ->count();
+    
+        $usuario = Auth::user();
+    
+        // Aquí es donde combinas tus vistas
+        return view('menuadmin', compact(
+            'totalUsuarios',
+            'ventasMes',
+            'inventario',
+            'entradasMes',
+            'salidasMes',
+            'devolucionesMes',
+            'usuario'
+        ));
+    }
+    
 
     /**
      * Show the form for creating a new resource.
