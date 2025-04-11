@@ -11,6 +11,7 @@ use App\Http\Controllers\VentaController;
 use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\DevolucionController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\DashboardController;
 
 
 // Rutas para Login
