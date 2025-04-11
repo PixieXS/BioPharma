@@ -72,7 +72,9 @@
       transform: scale(1.05);
     }
     .main-content {
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 40px;
     max-width: 800px; 
     height: calc(100vh - 100px); 
