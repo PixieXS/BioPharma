@@ -38,11 +38,13 @@
 
     .left-panel h1 {
       font-size: 5rem;
+      font-family: 'Poppins', sans-serif;
       font-weight: bold;
       margin-top: 20px;
       color: #3e8e41;
       text-align: center;
-      text-shadow: 2px 2px 4px #ffffff;
+      text-shadow: -1px -1px 2px #ffffff, 2px 2px 4px rgba(0, 0, 0, 0.4);
+
     }
 
     .right-panel {
