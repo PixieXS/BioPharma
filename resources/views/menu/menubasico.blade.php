@@ -75,7 +75,7 @@
     margin-top: 40px;
     padding: 40px;
     max-width: 800px; 
-    height: 200px; 
+    height: calc(100vh - 100px); 
     overflow-y: auto;
     background-color: #ffffff;
     border-radius: 8px;
