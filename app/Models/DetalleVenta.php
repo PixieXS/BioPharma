@@ -16,9 +16,12 @@ class DetalleVenta extends Model
         return $this->belongsTo(Venta::class);
     }
     
-    public function medicamento() {
-        return $this->belongsTo(Medicamento::class);
+    public function medicamento()
+    {
+        return $this->belongsTo(Medicamento::class, 'medicamento_id');
     }
+    
+
     
 
 }
