@@ -10,7 +10,11 @@ class Devolucion extends Model
     protected $table = 'devoluciones';
 
     protected $fillable = [
-        'medicamento_id', 'usuario_id', 'cantidad', 'fecha', 'motivo'
+        'detalle_venta_id',
+        'usuario_id',
+        'cantidad',
+        'fecha',
+        'motivo',
     ];
 
     public function usuario()
