@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $ventasMes = Venta::whereMonth('created_at', $mesActual)
                           ->whereYear('created_at', $anioActual)
                           ->sum('total');
-        $inventario = Medicamento::sum('cantidad');
+        $inventario = DB::table('medicamentos')->count();
         $entradasMes = Entrada::whereMonth('created_at', $mesActual)
                               ->whereYear('created_at', $anioActual)
                               ->count();
