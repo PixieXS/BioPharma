@@ -72,14 +72,14 @@
       transform: scale(1.05);
     }
     .main-content {
-    margin: 0 auto;
+    margin-top: 40px;
     padding: 40px;
-    max-width: 800px; /* Ancho máximo */
-    height: calc(100vh - 100px); /* Ajusta la altura al 100% de la pantalla menos márgenes */
+    max-width: 800px; 
+    height: 200px; 
     overflow-y: auto;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
     display: flex;
     flex-direction: column;
     align-items: center;
