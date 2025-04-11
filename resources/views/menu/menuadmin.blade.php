@@ -6,8 +6,8 @@
   <title>Dashboard - Farmacia BioPharma</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
- 
     body {
       font-family: 'Roboto', sans-serif;
       background: #f4f7f8;
@@ -85,7 +85,6 @@
       margin-bottom: 30px;
       color: #333;
     }
- 
     .dashboard-cards {
       display: flex;
       justify-content: space-around;
@@ -124,22 +123,19 @@
 
   <div class="sidebar">
     <h2>BioPharma</h2>
-    <a href="/usuario"><i class="fas fa-users"></i> Usuarios</a>
-    <a href="/medicamento"><i class="fas fa-pills"></i> Medicamentos</a>
-    <a href="/entrada"><i class="fas fa-arrow-circle-down"></i> Entradas</a>
-    <a href="/salida"><i class="fas fa-arrow-circle-up"></i> Salidas</a>
-    <a href="/venta"><i class="fas fa-shopping-cart"></i> Ventas</a>
-    <a href="/devolucion"><i class="fas fa-undo"></i> Devoluciones</a>
+    <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="#"><i class="fas fa-users"></i> Usuarios</a>
+    <a href="#"><i class="fas fa-pills"></i> Medicamentos</a>
+    <a href="#"><i class="fas fa-arrow-circle-down"></i> Entradas</a>
+    <a href="#"><i class="fas fa-arrow-circle-up"></i> Salidas</a>
+    <a href="#"><i class="fas fa-shopping-cart"></i> Ventas</a>
+    <a href="#"><i class="fas fa-undo"></i> Devoluciones</a>
   </div>
   
   <div class="navbar-top">
-    <div class="user-info">
-      @if($usuario)
-        Bienvenido, <strong>{{ $usuario->nombre }}</strong> ({{ ucfirst($usuario->rol) }})
-      @endif
-    </div>
+    <div class="user-info">Bienvenido, <strong>Carlos</strong> (Admin)</div>
     <div>
-      <a href="/login" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
   </div>
   
@@ -149,43 +145,41 @@
     <div class="dashboard-cards">
       <div class="dashboard-card">
         <h5>Total Usuarios</h5>
-        <p>{{ $totalUsuarios ?? 0 }}</p>
+        <p>12</p>
       </div>
       <div class="dashboard-card">
         <h5>Ventas del Mes</h5>
-        <p>${{ number_format($ventasMes ?? 0, 2) }}</p>
+        <p>$1,350.00</p>
       </div>
       <div class="dashboard-card">
         <h5>Inventario Total</h5>
-        <p>{{ $inventario ?? 0 }} u</p>
+        <p>452 u</p>
       </div>
       <div class="dashboard-card">
         <h5>Entradas</h5>
-        <p>{{ $entradasMes ?? 0 }}</p>
+        <p>87</p>
       </div>
       <div class="dashboard-card">
         <h5>Salidas</h5>
-        <p>{{ $salidasMes ?? 0 }}</p>
+        <p>63</p>
       </div>
       <div class="dashboard-card">
         <h5>Devoluciones</h5>
-        <p>{{ $devolucionesMes ?? 0 }}</p>
+        <p>14</p>
       </div>
     </div>
-    
+
     <div class="chart-container mt-4">
       <canvas id="dashboardChart" height="100"></canvas>
     </div>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
-    const ventasMes= {{ $ventasMes ?? 0 }};
-    const entradasMes = {{ $entradasMes ?? 0 }};
-    const salidasMes = {{ $salidasMes ?? 0 }};
-    const devolucionesMes = {{ $devolucionesMes ?? 0 }};
-    
+    const ventasMes = 1350;
+    const entradasMes = 87;
+    const salidasMes = 63;
+    const devolucionesMes = 14;
+
     const ctx = document.getElementById('dashboardChart').getContext('2d');
     const dashboardChart = new Chart(ctx, {
       type: 'bar',
@@ -213,16 +207,12 @@
         scales: {
           y: {
             beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
+            ticks: { precision: 0 }
           }
         },
         responsive: true,
         plugins: {
-          legend: {
-            display: false
-          }
+          legend: { display: false }
         }
       }
     });

@@ -3,43 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuario;
-use App\Models\Medicamento;
+use App\Models\User;
 use App\Models\Venta;
 use App\Models\Entrada;
 use App\Models\Salida;
 use App\Models\Devolucion;
+use App\Models\Medicamento;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $month = Carbon::now()->month;
-        $year  = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
 
-        $totalUsuarios = Usuario::count();
+        $totalUsuarios = User::count();
+        $ventasMes = Venta::whereMonth('created_at', $mesActual)->sum('total');
+        $inventario = Medicamento::sum('cantidad');
+        $entradasMes = Entrada::whereMonth('created_at', $mesActual)->count();
+        $salidasMes = Salida::whereMonth('created_at', $mesActual)->count();
+        $devolucionesMes = Devolucion::whereMonth('created_at', $mesActual)->count();
 
-        $ventasMes = Venta::whereMonth('fecha', $month)
-                          ->whereYear('fecha', $year)
-                          ->where('estado', 'completada')
-                          ->sum('total');
-
-        $inventario = Medicamento::sum('stock');
-
-        $entradasMes = Entrada::whereMonth('fecha', $month)
-                              ->whereYear('fecha', $year)
-                              ->sum('cantidad');
-
-        $salidasMes = Salida::whereMonth('fecha', $month)
-                            ->whereYear('fecha', $year)
-                            ->where('tipo_salida', 'venta')
-                            ->sum('cantidad');
-
-
-        $devolucionesMes = Devolucion::whereMonth('fecha', $month)
-                                     ->whereYear('fecha', $year)
-                                     ->sum('cantidad');
+        $usuario = Auth::user();
 
         return view('dashboard', compact(
             'totalUsuarios',
@@ -47,7 +33,8 @@ class DashboardController extends Controller
             'inventario',
             'entradasMes',
             'salidasMes',
-            'devolucionesMes'
+            'devolucionesMes',
+            'usuario'
         ));
     }
 
